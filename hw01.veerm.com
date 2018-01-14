@@ -2,7 +2,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        root /home/veer/www/hw01;
+        root /home/veer/www/hw01/;
 
         index hw01.html;
 
