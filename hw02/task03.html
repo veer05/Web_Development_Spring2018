@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Web_Dev HW02 Task 3</title>
+<style>
+	h1 {
+   	 text-align: center;}
+	.left_part{float:left; width:30%; margin: 10px;}
+	.right_part{float:right;  width:60%;}
+</style>
+</head>
+<body>
+	<h1 id="header">HW02 Task Three</h1>
+<div>
+<div class=left_part>
+	<p><a href="#" id="lorem_ipsem">Lorem Ipsem</a></p>
+	<p><a href="#" id="99_bottles">99 Bottles</a></p>
+	<p><a href="#" id="last_thing">Last Thing</a></p>
+</div>
+<div class=right_part>
+	<!-- Text obtained from https://www.lipsum.com/feed/html -->
+	<div id="lorem">
+	       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in porttitor nisi, in faucibus felis. Vestibulum ut rutrum erat, vitae sollicitudin purus. Integer bibendum commodo lacinia. In pharetra, eros imperdiet scelerisque accumsan, purus ante varius neque, eu mattis nisl erat aliquam urna. Morbi molestie nibh a eros bibendum tempus. Pellentesque in ornare augue. Phasellus varius libero gravida sapien varius, id aliquam nisl feugiat. Vestibulum dapibus tristique nibh sit amet euismod. Nunc hendrerit orci placerat arcu sollicitudin blandit. Aliquam vel porttitor mi, nec iaculis velit.</p>      
+		<p> In hac habitasse platea dictumst. Nam ac augue a nunc fringilla lobortis. Morbi suscipit, est nec scelerisque maximus, nibh tortor finibus magna, ac convallis quam leo sagittis lorem. Vivamus ut quam eu risus auctor efficitur sit amet non eros. Quisque faucibus leo in lacus ornare ultrices quis nec ex. Nam sollicitudin at libero nec fermentum. Curabitur quis sem rutrum, pellentesque nisi sit amet, feugiat sapien. Fusce eget sem id nisl sollicitudin fringilla a eu erat. Aenean vulputate, lorem vel mattis fermentum, mauris odio blandit risus, auctor posuere velit justo eu nisl. Curabitur ultricies felis fermentum, pulvinar mauris vitae, vehicula libero. Maecenas egestas diam ac iaculis sodales. Nulla vel volutpat mauris.</p>
+        	<p>Duis sit amet metus feugiat, sagittis sem vel, ornare ipsum. Nulla eleifend blandit dui, in lacinia sapien aliquet fringilla. Integer iaculis fringilla ex et ultricies. Pellentesque feugiat egestas justo in blandit. Donec nec dapibus augue. Donec vel venenatis arcu. Sed egestas tellus vitae facilisis tristique. Nam placerat elit quis diam congue luctus. Nulla facilisi.</p>
+        <p>Ut leo enim, gravida in nulla sed, dictum sollicitudin metus. Morbi pellentesque id dolor placerat blandit. Phasellus dapibus, nisi at mattis posuere, leo neque tempus tellus, ac vehicula enim ex nec elit. Nulla facilisi. Vestibulum feugiat neque vel nibh posuere, in vestibulum mi vestibulum. Mauris semper venenatis lacinia. Pellentesque consectetur pretium neque et viverra. Mauris feugiat sodales congue. Pellentesque vel dolor non turpis convallis facilisis et a elit. In a metus lobortis, efficitur elit eget, ultricies massa. Cras elementum justo ut eros efficitur posuere. Nunc luctus dictum erat eget commodo. In at nulla euismod, blandit mauris ut, dapibus massa. Sed ac lorem eget quam vestibulum ullamcorper in eget dolor.</p>
+	</div>
+	<!-- Lines taken from wikipedia about 99 Beer Bottles -->
+	<div id="p_bottles">
+	<p>99 bottles of beer on the wall, 99 bottles of beer.Take one down and pass it around, 98 bottles of beer on the wall.</p>
+        <p>98 bottles of beer on the wall, 98 bottles of beer.Take one down and pass it around, 97 bottles of beer on the wall.</p>
+        <p>97 bottles of beer on the wall, 97 bottles of beer.Take one down and pass it around, 96 bottles of beer on the wall.</p>
+        <p>96 bottles of beer on the wall, 96 bottles of beer.Take one down and pass it around, 95 bottles of beer on the wall.</p>
+	</div>
+	<div id="p_last_thing">
+	<p>This is the third thing</p>
+	</div>
+	</div>
+</div>
+<script>
+(function () {
+	"use strict";
+window.addEventListener('DOMContentLoaded', display_lorem, false);	
+var lorem_link = document.getElementById("lorem_ipsem");
+lorem_link.addEventListener("click",display_lorem);
+
+function display_lorem(){
+document.getElementById("lorem").style.display = "block";
+document.getElementById("p_bottles").style.display = "none";
+document.getElementById("p_last_thing").style.display = "none";
+}
+
+var bottle_link = document.getElementById("99_bottles");
+bottle_link.addEventListener("click",display_bottle);
+
+function display_bottle(){
+document.getElementById("lorem").style.display = "none";
+document.getElementById("p_bottles").style.display = "block";
+document.getElementById("p_last_thing").style.display = "none";
+}
+
+var last_link = document.getElementById("last_thing");
+last_link.addEventListener("click",display_last);
+
+function display_last(){
+document.getElementById("lorem").style.display = "none";
+document.getElementById("p_bottles").style.display = "none";
+document.getElementById("p_last_thing").style.display = "block";
+}
+
+})();
+</script>
+</body>
+</html>
+

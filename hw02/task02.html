@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	.bottomalign{position: absolute; bottom: 0px; }
+</style>
+<meta charset="utf-8">
+<title> HW02 Task02</title>
+</head>
+<body>
+<div>
+	<div>
+		<p id="changing_num">10</p>
+		<p><button id="btn_increment">Increment</button></p>
+		<p><button id="btn_popup">Alert</button></p>
+		<p><button id="btn_newp">Append</button></p>
+	</div>
+		<div class="bottomalign" id ="new_paras">
+	</div>
+</div>
+<script>
+
+num=document.getElementById("changing_num").innerText;
+
+(function (){
+	"use strict";
+	function increment_num(){
+ 	<!--var incr = document.getElementById("changing_num");-->
+	num++;}
+	var btn_inc = document.getElementById("btn_increment");
+	btn_inc.addEventListener("click",increment_num);
+})();
+	<!--incr.innerText = old_num-->
+
+
+(function (){
+	"use strict"
+	var btn_alt = document.getElementById("btn_popup");
+	<!--var num = document.getElementById("changing_num");-->
+	btn_alt.addEventListener("click",popup);
+	function popup(){
+	alert(num);}
+})();
+
+(function (){
+	"use strict"
+	function attachpara(){
+	var para = document.createElement("p");
+	var node = document.createTextNode(num);
+	para.appendChild(node);
+	var element = document.getElementById("new_paras");
+	element.appendChild(para);
+	}
+	var btn_p=document.getElementById("btn_newp");
+	btn_p.addEventListener("click",attachpara);
+})();
+</script>
+</body>
+</html>
