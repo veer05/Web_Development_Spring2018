@@ -1,0 +1,128 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Button } from 'reactstrap';
+
+export default function init(root) {
+  ReactDOM.render(<MainClass />, root);
+}
+
+const cardLetters= ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H'];
+
+
+function   makecardShow()
+  {
+    let makeCards=[];
+
+    for(let i=0;i<16;i++)
+    {
+      let pair={
+        id:i,
+        key:cardLetters[i],
+        matched:false,
+        flipped:false,
+        flipcount:0
+      };
+
+      makeCards.push(pair);
+
+
+    }
+    //console.log(makeCards);
+    return makeCards;
+
+  }
+class MainClass extends React.Component{
+        constructor(props){
+                super(props);
+                this.state = {
+                             cards:makecardShow(),
+                             };
+        }
+    
+ markItem(name) {
+    let xs = _.map(this.state.cards, (card) => {
+    if(card.flipped === false){
+      if (card.id === name) {
+        return _.extend(card, {flipped: true});
+      }
+      else {
+        return card;
+      }
+    }
+    else{
+    	return card;
+    }  
+    });
+    this.setState({ cards: xs });
+  }
+    
+
+        render(){
+      		let cardList=_.map(this.state.cards, (card,ii) => {
+      		return <Card item={card} markItem={this.markItem.bind(this)} key={ii} />;});
+                return(
+                    <div>
+                    	<div class ="row">
+                    		<div className="col-sm-3">
+                    			{cardList[0]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[1]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[2]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[3]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[4]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[5]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[6]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[7]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[8]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[9]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[10]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[11]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[12]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[13]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[14]}
+                    		</div>
+                    		<div className="col-sm-3">
+                    			{cardList[15]}
+                    		</div>
+                    	</div>	   
+                    </div>        
+                );
+        }
+}
+
+function Card(props) {
+  let item = props.item;
+  if (item.flipped) {
+    return <p>{item.key}</p>;
+  }
+  else {
+    return <p onClick={() => props.markItem(item.id)}>{item.id}</p> 
+  }
+}
