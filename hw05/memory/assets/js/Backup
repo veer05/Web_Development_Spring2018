@@ -1,0 +1,120 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Button } from 'reactstrap';
+
+export default function init(root) {
+  ReactDOM.render(<MainClass />, root);
+}
+
+class MainClass extends React.Component{
+        constructor(){
+                super();
+                this.state = {
+                             university: "?",
+                             clicked: false};
+        }
+  
+  individual_Letters() {
+    return this.state.alphabets.split("");
+  }
+
+  temp_function(){
+  	return this.state.university
+  }
+  
+  isclicked(){
+  	return this.state.clicked
+  }
+
+  update(){
+	this.university="X";
+	this.setState(this);  
+  }
+
+  updateItem(name){
+  	let xs = this.state	
+	xs.university = name;
+	xs.clicked = !this.clicked;
+    this.setState(xs);
+    }
+        render(){
+        		let alphabets =['A','B','C','D','E','F','G','H','A','B','C','D','E','F','G','H'];
+                return(
+                    <div>	
+                        <div class="row">
+                            <div class="col-sm-3">
+                            		<div class="card"style={{margin: 10, background: "#eee"}}>
+                            	    	<div class="card-body">
+                 							<h1 onClick={this.update.bind(this)}>                       {this.temp_function()}</h1>	
+                                    	</div>
+                                	</div>
+                            </div>
+                            <div class="col-sm-3">
+                            	<Card root={this} al={alphabets[1]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[2]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[3]}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[4]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[5]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[6]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[7]}/>
+                            </div>
+                        </div>                            
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[8]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[9]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[10]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[11]}/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[12]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[13]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[14]}/>
+                            </div>
+                            <div class="col-sm-3">
+                                <Card root={this} al={alphabets[15]}/>
+                            </div>
+                        </div>
+                    </div>        
+                );
+        }
+}
+
+function Card(params) {
+	let root = params.root;
+	let alpha = params.al;
+	return(
+	        <div class="card"style={{margin: 10, background: "#eee"}}>
+                <div class="card-body">
+                    <h1 class="card-text" onClick={() => root.updateItem(alpha)}>
+					{root.temp_function()}</h1>
+                </div>
+            </div>
+	) 
+}
