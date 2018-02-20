@@ -52,7 +52,7 @@ defmodule TaskTrackerWeb.TaskController do
         |> redirect(to: "/feed")
       {:error, %Ecto.Changeset{} = changeset} ->
       	users = Accounts.list_users()
-        render(conn, "edit.html", task: task, changeset: changeset, users:users)
+        render(conn, "edit.html", task: task, changeset: changeset, users: users)
     end
   end
 
