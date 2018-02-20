@@ -1,0 +1,35 @@
+<%= if @current_user do %>
+  <div class="row">
+    <div class="col">
+		<%= render TaskTrackerWeb.TaskView, "form.html", 
+			Map.put(assigns, :action, task_path(@conn, :create)) %>
+    </div>
+  </div>
+<% end %>
+
+
+
+
+<h2>Listing of all tasks</h2>
+
+  	<%= Enum.map Enum.reverse(@tasks), fn task -> %>
+  		<div class="card bg-light border-dark">
+  		<div class="card-body">
+  		<table class="table">
+      		<tr><td>Task Assigned by :</td><td> <%= task.user.name %></td></tr>
+      		<tr><td>Task Assigned to :</td><td> <%= task.assigned_to %></td></tr>
+      		<tr><td>Task Title       :</td><td> <%= task.task_title %></td></tr>
+      		<tr><td>Task Description :</td><td> <%= task.task_desc %></td></tr>
+      		<tr><td>Task Completed?  :</td><td> <%= task.completed %></td></tr>
+      		<tr><td>Time Spent       :</td><td> <%= task.time_taken %></td></tr>
+
+      		<tr class="text-right"><td></td><td>
+        		<span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+       			 <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+        		 <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      		</td></tr>
+      	</table>
+      	</div>
+    	</div>
+    	<br />
+  	<% end %>
