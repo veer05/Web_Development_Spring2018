@@ -51,7 +51,8 @@ defmodule TaskTrackerWeb.TaskController do
         |> put_flash(:info, "Task updated successfully.")
         |> redirect(to: "/feed")
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", task: task, changeset: changeset)
+      	users = Accounts.list_users()
+        render(conn, "edit.html", task: task, changeset: changeset, users:users)
     end
   end
 
