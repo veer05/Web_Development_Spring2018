@@ -1,0 +1,43 @@
+<h2> Your Information </h2>
+<div class="card bg-light border-dark">
+<div class="card-body">
+<ul>
+  <li>
+    <strong>Name</strong>
+    <%= @main_user.name %>
+  </li>
+  <li>
+    <strong>Email address:</strong>
+    <%= @main_user.email %>
+  </li>
+</ul>
+</div>
+</div>
+</br></br>
+<%= if length(Enum.filter(@users, fn(x) -> x.manager_id == @current_user.id end)) > 0 do %>
+<h2>Listing Subordinates</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% else %>
+  <h2>You have no Subordinates!! </h2>
+<% end  %>

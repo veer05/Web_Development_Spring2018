@@ -1,0 +1,43 @@
+<%= if @current_user do %>
+  <div class="row">
+    <div class="col">
+    <%= if length(Enum.filter(@users, fn(x) -> x.manager_id == @current_user.id end)) > 0 do %>
+		<%= render TaskTrackerWeb.TaskView, "form.html", 
+			Map.put(assigns, :action, task_path(@conn, :create)) %>
+      <% else %>
+        <h2> You have no Subordinate to Assign task to</h2>
+    <% end %>
+    </div>
+  </div>
+<% end %>
+
+
+
+</br>
+</br>
+<%= if length(Enum.filter(@users, fn(x) -> x.manager_id == @current_user.id end)) > 0 do %>
+<h2>Listing of all tasks</h2>
+
+  	<%= Enum.map Enum.filter(Enum.reverse(@tasks), fn(x) -> (x.user.id ==@current_user.id) or (x.assigned_to == @current_user.name) end), fn task -> %>
+  		<div class="card bg-light border-dark">
+  		<div class="card-body">
+  		<table class="table">
+      		<tr><td>Task Assigned by :</td><td> <%= task.user.name %></td></tr>
+      		<tr><td>Task Assigned to :</td><td> <%= task.assigned_to %></td></tr>
+      		<tr><td>Task Title       :</td><td> <%= task.task_title %></td></tr>
+      		<tr><td>Task Description :</td><td> <%= task.task_desc %></td></tr>
+      		<tr><td>Task Completed?  :</td><td> <%= task.completed %></td></tr>
+          <tr><td>Please Click Show more View/Modify timestamps </td><td><span> <%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span></td></tr>
+
+      		<tr class="text-right"><td></td><td>
+       			 <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+        		 <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      		</td></tr>
+      	</table>
+      	</div>
+    	</div>
+    	<br />
+  	<% end %>
+<% else %>
+  <h2> You have no tasks!!! </h2>
+<% end %>

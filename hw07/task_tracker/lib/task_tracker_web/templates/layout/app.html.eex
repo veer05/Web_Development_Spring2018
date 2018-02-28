@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello TaskTracker!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+
+<div class="row">
+    <%= if @current_user do %>
+      <div class="col-9">
+        <p class="p-4">
+          <a href="/feed">Feed</a> |
+          <a href="/profile">User Profile</a>
+        </p>
+      </div>
+      <div class="col-3">
+        <p class="p-4">
+          Logged in as: <%= @current_user.name %> |
+          <%= link "Log Out", to: "/session", method: :delete %>
+        </p>
+      </div>
+    <% else %>
+      <div class="col-3 offset-9">
+        <p>Not logged in.</p>
+      </div>
+    <% end %>
+  </div>
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

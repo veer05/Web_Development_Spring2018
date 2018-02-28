@@ -1,0 +1,47 @@
+Design Choice: 
+Session Variable (or Cookie) : Contains userid only, Not storing user object itself in session for two main concern 
+	- Just storing the userid will consume less space as compared to storing the whole user object
+	- And if a user is banned then once the user object is pulled from the database it is actually flagged and the stored user object is not loaded
+
+There are two main resource in the application
+
+User Resource : User in the app has the following fields
+	- email : type: string : It is the email id of the user
+	- name  : type: string : It cooresponds to the name of the user
+	- id	: type: id	   : Implicitly generated at the backend
+	- timestamp: Contains created time and updated time which is created implicitly
+
+Task Resource : Task in the app has the following fields
+	- task_title : type: string : It is a string type which holds the task title of the task being assigned
+	- task_desc  : type: text   : It is a text type(longer string) which holds the task description of the task being asigned
+	- completed  : type: boolean: It is a boolean field that represents if the task which is assigned is completed or not completed
+	- time_taken : type: int    : It is a int field that represents the time spent by asignee for the task, in the increments by 15 any number which is not a multiple of 15 is not accepted 
+	- assigned_to: type: string : It is a string which in the front end is the dropdown of list of valid user-email (using email because email is unique where as name can have duplicates) and while displaying tasks mapping the user-email to the user name
+	- user_id    : type: id 	: This cooresponds to the user who created the task, it is a foreign key which references the users table
+
+
+
+
+Note: I am not using any default scafoldings provided by the phoenix server, pages which list the users, tasks (index page of the resource) or the show page etc are hidden from the app users so that they do not have access to the whole 
+list of users/tasks instead i use feed.html which is used to create new task and display it below
+
+Flow : 
+ - User is directed to the login page, where he can enter his email id or register 
+ 	- to register he has to click the register button and enter name and email id
+ - After logging in he is redirected to the feed.html page
+  	- Where he has access to 
+  		- Create Task and assign task to himself or other users using the app
+  		- See the tasks listed and the status of each task
+  		- See more details about the task
+  		- Edit the task 
+  		- Delete the task
+ - When the user logs in, he is in feed, In the feed page, since his name is preloaded with his name, he is the creator of the task, this name is parsed into the user id to store in the database
+ - Task Description Task title Completed are left for his selection 
+ - Task Assigned to : It is the dropdown of list of valid user-email (using email because email is unique where as name can have duplicates) and while displaying tasks mapping the user-email to the user name
+ _ when he creates a task
+ 	_ TASKS are placed in such a way that the most recent is placed above and the older ones are below
+ - The tasks have edit show and delete , edit to edit the task - update time in the multiple of 15 update other fields, maybe assign to someone else mark the task as compelted etc. 
+ - Tasks have show button so that the task is maximised on other page to view all description, maybe if the description is too long can hide that in the feed display and show it on click of show button 
+ - Delete button to delete the task
+
+ :) 

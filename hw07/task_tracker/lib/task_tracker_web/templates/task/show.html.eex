@@ -1,0 +1,79 @@
+<script>
+ window.time_track_path = "<%= time_track_path(@conn, :index) %>";
+</script>
+
+
+<h2>Show Task</h2>
+
+<ul>
+
+  <li>
+    <strong>User</strong>
+    <%= @task.user.name %>
+  </li>
+  <li>
+    <strong>Task title:</strong>
+    <%= @task.task_title %>
+  </li>
+
+  <li>
+    <strong>Task desc:</strong>
+    <%= @task.task_desc %>
+  </li>
+
+  <li>
+    <strong>Completed:</strong>
+    <%= @task.completed %>
+  </li>
+
+  <li>
+    <strong>Assigned to:</strong>
+    <%= @task.assigned_to %>
+  </li>
+
+  <li>
+    <strong>Time taken:</strong>
+    <%= @task.time_taken %>
+  </li>
+
+</ul>
+
+
+
+<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
+<span><%= link "Back", to: "/feed" %></span>
+
+<h2>Listing Time Blocks</h2>
+<p><button class = "newtime btn btn-primary btn-xs" data-task-id = "<%= @task.id %>">
+  		Add New Time Block </button></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Time Block Number</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+  <%= Enum.map Enum.filter(Enum.reverse(@timetracks), fn(x) -> (x.task_id == @task.id) end), fn time -> %>
+  <tr>	
+  	<td><%= time.id %></td>
+  	<td><%= time.start_time %></td>
+  	<td><button class = "starttime btn btn-primary btn-xs" data-task-id = "<%= @task.id %>" 
+  	data-time-id = "<%= time.id %>">
+  		Update Start Time </button></td>
+  	<td><%= time.end_time %></td>
+  	<td><button class = "endtime btn btn-primary btn-xs" data-task-id = "<%= @task.id %>"
+  	data-time-id = "<%= time.id %>">
+  		Update End Time </button></td>
+  	<td><button class = "deltime btn btn-danger btn-xs"
+  	data-time-id = "<%= time.id %>">
+  		Delete Record </button></td> 
+  </tr>
+  <% end %>
+  </tbody>
+</table>
