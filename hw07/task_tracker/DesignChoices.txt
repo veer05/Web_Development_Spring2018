@@ -1,3 +1,5 @@
+PLEASE REFER TO THE OTHER DESIGN CHOICE TEXT FILE< THAT HAS ALL THE DETAILS
+
 Design Choice: 
 Session Variable (or Cookie) : Contains userid only, Not storing user object itself in session for two main concern 
 	- Just storing the userid will consume less space as compared to storing the whole user object
