@@ -1,9 +1,12 @@
 
-	- TimeStamp can be entered in the show page of the task, New timestamp will create new timestamp and multiple timestamp can be createdd 
+	- TimeStamp can be entered in the show page of the task, New timestamp will create new timestamp and multiple timestamp can be 	created
 	  at the same time start time and end time can be edited manually by clicking the button, when user clicks then the 
 	  start time/ end time can be updated. If new entry is to be made create new time stamp button will create the same, and 
 	  individual entries there can be edited
 
+	- You can select your manager when a user registers, He has a dropdown from which he can select his manager
+	- If the user does not have an manager then he can select does not have a manger in the dropdown.
+	- The manager can later change the subordinates manager, as written below
 Design Choice: 
 Session Variable (or Cookie) : Contains userid only, Not storing user object itself in session for two main concern 
 	- Just storing the userid will consume less space as compared to storing the whole user object
@@ -34,19 +37,21 @@ list of users/tasks instead i use feed.html which is used to create new task and
 Flow : 
  - User is directed to the login page, where he can enter his email id or register 
  	- to register he has to click the register button and enter name and email id
+	- He can slect the manager from the list of valid dropdown
  - After logging in he is redirected to the feed.html page
-  	- Where he has access to 
+  	- Where if the user is the managere then he has access to 
   		- Create Task and assign task to himself or other users using the app
   		- See the tasks listed and the status of each task
   		- See more details about the task
   		- Edit the task 
   		- Delete the task
+		- Task assigned to is visible to manager and the subrdinate only
  - When the user logs in, he is in feed, In the feed page, since his name is preloaded with his name, he is the creator of the task, this name is parsed into the user id to store in the database
  - Task Description Task title Completed are left for his selection 
  - Task Assigned to : It is the dropdown of list of valid user-email (using email because email is unique where as name can have duplicates) and while displaying tasks mapping the user-email to the user name
  _ when he creates a task
  	_ TASKS are placed in such a way that the most recent is placed above and the older ones are below
- - The tasks have edit show and delete , edit to edit the task - update time in the multiple of 15 update other fields, maybe assign to someone else mark the task as compelted etc. 
+ - The tasks have edit show and delete , edit to edit the task - maybe assign to someone else mark the task as compelted etc. 
  - Tasks have show button so that the task is maximised on other page to view all description, maybe if the description is too long can hide that in the feed display and show it on click of show button 
  - Delete button to delete the task
 
@@ -59,9 +64,12 @@ Additional Notes:
 	- When a user register he gets to register himself/herself then he gets to choose his/her manager later he can also edit his manager using the edit functionality
 	  is available for the manager only a user simply cannot chnage his manager a manager only has permission to change and assign a new manager
 	- Time stamps operates same as stated above
-	- THe task can only be assigne by the manager
+	- The task can only be assigne by the manager
 	- the task can only be assigned by a manger to his subordinates
 	- the task is only visible betweeen the manger and his subordinates
 	- The user has no privlage to assign task to anyone if he is not the user.
 	- Timeblock is a json resource. A task has many timestamps and many timestamps can have one task that they are assigned to
-
+	- To create the timestamp you have to go to show button of the task then create a time block, there on you can update start and end time and 
+	  delete the timestamp if needed
+	  
+	
