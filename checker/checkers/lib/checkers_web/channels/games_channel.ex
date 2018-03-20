@@ -1,6 +1,8 @@
 defmodule CheckersWeb.GamesChannel do
   use CheckersWeb, :channel
 
+  alias Checkers.Game
+
   #def join("games:lobby", payload, socket) do
   #  if authorized?(payload) do
   #    {:ok, socket}
@@ -11,11 +13,17 @@ defmodule CheckersWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      {:ok, %{"join" => name}, socket}
+
+      game = Game.new()
+      socket = socket
+      |> assign(:game, game)
+      |> assign(:name, name)
+      {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
+
 
   
   # Channels can be used in a request/response fashion
