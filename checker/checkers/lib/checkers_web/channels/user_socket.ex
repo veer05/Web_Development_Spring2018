@@ -3,7 +3,6 @@ defmodule CheckersWeb.UserSocket do
 
   ## Channels
   channel "games:*", CheckersWeb.GamesChannel
-
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll

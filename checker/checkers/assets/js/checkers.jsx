@@ -8,55 +8,16 @@ export default function game_init(root,channel) {
   ReactDOM.render(<Checkers channel={channel} />, root);
 }
 
-function fill_info_p1()
-  {
-    let makepawns=[];
-    let newarray = [1,3,5,7,8,10,12,14,17,100,21,23]; 
-    
-
-    for(let i=0;i<12;i++)
-    {
-      let pawn={
-        id:i,
-        player_color:'red',
-        position:newarray[i],
-        defeated:false,
-        king:false,};
-        makepawns.push(pawn);
-    }
-  return makepawns;
-
-}
-
-function fill_info_p2()
-  {
-    let makepawns=[];
-    let newarray = [40,42,44,46,49,51,53,55,56,58,60,62]; 
-    
-
-    for(let i=0;i<12;i++)
-    {
-      let pawn={
-        id:i,
-        player_color:'black',
-        position:newarray[i],
-        defeated:false,
-        king:false,};
-        makepawns.push(pawn);
-    }
-  return makepawns;
-
-}
 
 class Checkers extends React.Component {
-
  
   constructor(props) {
     
     super(props);
     this.channel = props.channel;
     this.state = {
-       pawns: []         
+       pawns: [],
+       to_delete: {},         
    };
    console.log("Before Channel");
    this.channel.join()
@@ -93,33 +54,79 @@ class Checkers extends React.Component {
     return allSquares;
   }
 
-
   getNextMove(pawn,color){
-    let makepawns=[];    
+    //console.log(pawn);
+    let makepawns={};
+    let dictmove1 = {};
+    let dictmove2 = {}; 
+    if(pawn.king == true){
+      dictmove1 = this.getNextRedMove(pawn);
+      dictmove2 = this.getNextBlackMove(pawn);
+      Object.assign(makepawns,dictmove1,dictmove2)
+    }
+    else if (pawn.player_color == "red"){
+      makepawns = this.getNextRedMove(pawn);
+    }
+    else {
+      makepawns = this.getNextBlackMove(pawn);
+    }
+    //console.log("GetNextMove")
+    //console.log(makepawns)
+    return makepawns;
+  }
+
+
+  getNextRedMove(pawn){
+    let dictmove = {};
+    let makepawns=[];  
     let pawnlist = this.state.pawns;
-    if (pawn.player_color == 'red'){
-        makepawns[0] = pawn.position + 7;    
-        makepawns[1] = pawn.position + 9;
-    }
-    else{
-        makepawns[0] = pawn.position - 7;    
-        makepawns[1] = pawn.position - 9;
-    }
-    console.log("At getNextMove");
+    makepawns[0] = pawn.position + 7;    
+    makepawns[1] = pawn.position + 9;
+
+    //console.log("At getNextMove RED");
     if(pawn.position % 8 == 0){
         makepawns[0] = 100;
     }
     if((pawn.position+1) % 8 == 0){
         makepawns[1] = 100;
     }
-
-    for(let i=0;i<12;i++)
+    if(pawn.player_color == "black"){
+        for(let i=0;i<12;i++)
+      {   
+        if(pawnlist.red[i].position == makepawns[0]){
+            makepawns[0] = pawn.position + 14;    
+              for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.red[i].position == makepawns[0] || pawnlist.black[i].position == makepawns[0]|| ((makepawns[0] + 1) % 8 == 0)) {
+                    makepawns[0] = 100        
+                 } 
+                }
+          }
+          else if(pawnlist.black[i].position == makepawns[0]){
+            makepawns[0] = 100
+          }
+          if (pawnlist.red[i].position == makepawns[1]){
+              makepawns[1] = pawn.position + 18;
+                for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.red[i].position == makepawns[1] || pawnlist.red[i].position == makepawns[1] ||(makepawns[1]) % 8 == 0){
+                    makepawns[1] = 100        
+                 } 
+                }
+          }   
+          else if(pawnlist.black[i].position == makepawns[1]){
+             makepawns[1] = 100
+          }
+      }
+    }
+    else{
+      for(let i=0;i<12;i++)
       {   
         if(pawnlist.black[i].position == makepawns[0]){     
             makepawns[0] = pawn.position + 14;
               for(let i=0;i<12;i++)
                 {
-                 if(pawnlist.black[i].position == makepawns[0] || pawnlist.black[i].position == makepawns[0]|| ((makepawns[0] + 1) % 8 == 0)) {
+                 if(pawnlist.black[i].position == makepawns[0] || pawnlist.red[i].position == makepawns[0]|| ((makepawns[0] + 1) % 8 == 0)) {
                     makepawns[0] = 100        
                  } 
                 }
@@ -140,37 +147,155 @@ class Checkers extends React.Component {
              makepawns[1] = 100
           }
       }
-    console.log(makepawns)
-    return makepawns;
+    }
+
+
+    dictmove[makepawns[0]] = true;
+    dictmove[makepawns[1]] = true;
+    return dictmove;
+  }
+
+  getNextBlackMove(pawn){
+    let dictmove={};
+    let makepawns=[];  
+    let pawnlist = this.state.pawns;
+    makepawns[0] = pawn.position - 9;    
+    makepawns[1] = pawn.position - 7;
+    console.log("At getNextMove Black");
+    
+    
+    if(pawn.position % 8 == 0){
+        makepawns[0] = 100;
+    }
+    if((pawn.position+1) % 8 == 0){
+        makepawns[1] = 100;
+    }
+    if (pawn.player_color == "red")
+    {
+      for(let i=0;i<12;i++)
+      {   
+        if(pawnlist.black[i].position == makepawns[0]){     
+            makepawns[0] = pawn.position - 18;
+              for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.red[i].position == makepawns[0] || pawnlist.black[i].position == makepawns[0]|| ((makepawns[0] + 1) % 8 == 0)) {
+                    makepawns[0] = 100        
+                 } 
+                }
+          }
+          else if(pawnlist.red[i].position == makepawns[0]){
+            makepawns[0] = 100
+          }
+          if (pawnlist.black[i].position == makepawns[1]){
+              makepawns[1] = pawn.position - 14;
+                for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.red[i].position == makepawns[1] || pawnlist.black[i].position == makepawns[1] ||(makepawns[1]) % 8 == 0){
+                    makepawns[1] = 100        
+                 } 
+                }
+          }   
+          else if(pawnlist.red[i].position == makepawns[1]){
+             makepawns[1] = 100
+          }
+      }
+    }
+    else{
+    for(let i=0;i<12;i++)
+      {   
+        if(pawnlist.red[i].position == makepawns[0]){
+            makepawns[0] = pawn.position - 18;    
+              for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.black[i].position == makepawns[0] || pawnlist.red[i].position == makepawns[0]|| ((makepawns[0] + 1) % 8 == 0)) {
+                    makepawns[0] = 100        
+                 } 
+                }
+          }
+          else if(pawnlist.black[i].position == makepawns[0]){
+            makepawns[0] = 100
+          }
+          if (pawnlist.red[i].position == makepawns[1]){
+              makepawns[1] = pawn.position - 14;            
+                for(let i=0;i<12;i++)
+                {
+                 if(pawnlist.black[i].position == makepawns[1] || pawnlist.red[i].position == makepawns[1] ||(makepawns[1]) % 8 == 0){
+                    makepawns[1] = 100        
+                 } 
+                }
+          }   
+          else if(pawnlist.black[i].position == makepawns[1]){
+             makepawns[1] = 100
+          }
+      }
+    }
+      dictmove[makepawns[0]] = true;
+      dictmove[makepawns[1]] = true;
+      return dictmove;
+  }
+
+
+  pawnToRemove(remove_pawn, pos){
+    let pawnlist = this.state.pawns;
+    for(let i =0;i<12;i++){
+      if(pawnlist[remove_pawn][i].position == pos)
+      {
+        return pawnlist[remove_pawn][i]
+      }
+    }
   }
 
   movepawn(id,pawn_id,color){
+    var remove_pawn; 
+    var rm_pawn;
     console.log("Breakthrough")
-
-    console.log(pawn_id)    
-    if (color == 'red'){
-        let temp = this.state.pawns
-        console.log(this.state.pawns.red[pawn_id].position)
-        if (this.state.pawns.red[pawn_id].position + 14 == id ||
-        this.state.pawns.red[pawn_id].position + 18 == id)
-        {
-          for(let i=0;i<12;i++)
-            {
-              if(this.state.pawns.black[i].position == (this.state.pawns.red[pawn_id].position + 7 || this.state.pawns.red[pawn_id].position + 9)){
-                  this.state.pawns.black[i].position = 100;
-              }  
-            }
+    switch(color){
+      case("red"):
+        remove_pawn = "black";
+        if(id > 55){
+          this.state.pawns[color][pawn_id].king = true
         }
-        this.state.pawns.red[pawn_id].position = id;
-        this.setState({pawns: temp});
-    }else{
-        console.log(this.state.pawns.red[pawn_id].position)
-        this.state.pawns.black[pawn_id].position = id;
-        let temp = this.state.pawns
-        this.setState({pawns: temp});
+        break;
+      case("black"):
+        remove_pawn = "red"
+        
+        if(id < 8){
+          this.state.pawns[color][pawn_id].king = true
+        }
+        break;
     }
-    this.setState({previously_clicked:100})
-    this.setState({previous_player:'none'})
+    console.log("First Switch")    
+      switch(id){
+          case (this.state.pawns[color][pawn_id].position + 14):
+            console.log("Hit here +14")
+            rm_pawn = this.pawnToRemove(remove_pawn, id - 7);
+            console.log("Pawn to be Removed");
+            console.log(rm_pawn);
+            this.state.pawns[remove_pawn][rm_pawn.id].position = -100;
+            break;
+          case (this.state.pawns[color][pawn_id].position + 18):
+            console.log("Hit here +18")
+            rm_pawn = this.pawnToRemove(remove_pawn, id - 9);
+            this.state.pawns[remove_pawn][rm_pawn.id].position = -100;
+            break;
+          case (this.state.pawns[color][pawn_id].position - 14):
+            rm_pawn = this.pawnToRemove(remove_pawn, id + 7);
+            this.state.pawns[remove_pawn][rm_pawn.id].position = -100;
+            console.log("Hit here -14")
+            break;
+          case (this.state.pawns[color][pawn_id].position - 18):
+            console.log("Hit here -18")
+            rm_pawn = this.pawnToRemove(remove_pawn, id + 9);
+            this.state.pawns[remove_pawn][rm_pawn.id].position = -100;
+            break;
+          default:
+            console.log("Fail")
+      }
+      this.state.pawns[color][pawn_id].position = id        
+      let temp = this.state.pawns;
+      this.setState({pawns: temp})
+      this.setState({previously_clicked:100})
+      this.setState({previous_player:'none'})
   }
 
   pawnClicked(id,pawn_id,color)
@@ -211,7 +336,7 @@ class Checkers extends React.Component {
       console.log(this.state.pawns.black[pawn_id].position-9)
     }
 
-    console.log(selected_pawn);
+    //console.log(selected_pawn);
   }
 
   render()
@@ -274,19 +399,14 @@ function Square(props) {
             p_id = pawns.black[i].id
           }
   } 
-  let validmove = [100,100]
-  console.log("these are id")
-  console.log(id);
+  let validmove = {};
   if (props.player == 'red'){
       let pawn = pawns.red[props.prevclick];
       //if (pawns.red[props.prevclick].position == id){
       validmove = props.possibleNextMove(pawn,color);
       //}
-      console.log("this is valid move")
-      console.log(validmove)
-      if(validmove[0] === id || validmove[1] === id){
-          console.log("True")
-          console.log(id)
+      if(validmove[id] !== undefined){
+          //console.log(id)
           clickable = true;
           highlight_Square = true;
           normal_Square = false;
@@ -299,7 +419,7 @@ function Square(props) {
       //let position = pawns.black[props.prevclick].position; 
       //let validmove1 = position-7;
       //let validmove2 = position-9;
-      if(validmove[0] == id || validmove[1] == id){
+      if(validmove[id] !== undefined){
             clickable = true;
             highlight_Square = true;
             normal_Square = false;
