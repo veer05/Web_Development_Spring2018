@@ -5,8 +5,8 @@ defmodule Checkers.Game do
 	IO.inspect("oin new")
     %{
        
-       	pawns: %{:red => createPlayer1Pawns(), 
-       	         :black => createPlayer2Pawns()},
+       	pawns: %{:red => createPlayerPawns("red"), 
+       	         :black => createPlayerPawns("black")},
 
        	previously_clicked: 100,
        	previous_player: "none",
@@ -25,37 +25,23 @@ defmodule Checkers.Game do
     } 
   	end
 
-	def createPlayer1Pawns() do
+	def createPlayerPawns(color) do
 	
 
 		make_pawns=[]
-    	new_array = [{0,1},{1,3},{2,5},{3,7},{4,8},{5,10},{6,12},{7,14},{8,17},{9,19},{10,35},{11,23}];
-    	
+    if(color == "red") do
+    	new_array = [{0,1},{1,3},{2,5},{3,7},{4,8},{5,10},{6,12},{7,14},{8,17},{9,19},{10,21},{11,23}];
+    else
+      new_array = [{0,40},{1,42},{2,44},{3,46},{4,49},{5,51},{6,53},{7,55},{8,56},{9,58},{10,60},{11,62}];
+    end
     	make_pawns = Enum.map(new_array, fn{k,v} -> 
   
  	 
-  		make_pawns = make_pawns ++ %{id: k, player_color: "red", position: v, defeated: false,king: false} 
+  		make_pawns = make_pawns ++ %{id: k, player_color: color, position: v, defeated: false,king: false} 
 
   		 end)
 
 		
 	end
-
-	def createPlayer2Pawns() do
-	
-
-		make_pawns=[]
-    	new_array = [{0,40},{1,42},{2,44},{3,46},{4,48},{5,50},{6,52},{7,54},{8,56},{9,58},{10,60},{11,62}];
-    	
-    	make_pawns = Enum.map(new_array, fn{k,v} -> 
-  
- 	 
-  		make_pawns = make_pawns ++ %{id: k, player_color: "black", position: v, defeated: false,king: false} 
-
-  		 end)
-
-	
-	end
-
 
 end
