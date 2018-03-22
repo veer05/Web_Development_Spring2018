@@ -166,7 +166,7 @@ defmodule Checkers.Game do
 
                     dictmove1 = getNextRedMove(game,pawn)
                     dictmove2 = getNextBlackMove(game,pawn)
-                    Map.merge(makePawns,dictmove1,dictmove2)
+                    makePawns = Map.merge(dictmove1,dictmove2)
 
 
       pawn.player_color == "red" ->
@@ -178,6 +178,8 @@ defmodule Checkers.Game do
     end
 
     game = Map.put(game, :validSquares, makePawns)
+    game = %{game | previously_clicked: id }
+    game = %{game | previous_player: color }
 
   end
 
@@ -257,7 +259,7 @@ defmodule Checkers.Game do
 
       end  
 
-      validPos = %{pos0 => true, pos1 => true} 
+      validPos = %{pos0 => true, pos1 => true}
   end
 
 

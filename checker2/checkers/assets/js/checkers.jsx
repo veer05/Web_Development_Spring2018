@@ -20,10 +20,11 @@ class Checkers extends React.Component {
        validSquares: {},         
    };
    console.log("Before Channel");
+   this.getSquares = this.getSquares.bind(this);
    this.channel.join()
         .receive("ok", this.renderView.bind(this))
         .receive("error",resp => {console.log("unable to join",resp)});
-    this.getSquares = this.getSquares.bind(this);
+
 
  }
 
@@ -57,13 +58,16 @@ class Checkers extends React.Component {
 
   
   getNextMove(pawn,color){
+	  	console.log('at getNextMove')
+	  	console.log(this.state.validSquares)
+    //let temp = this.state.validSquares
 
-    let temp = this.state.validSquares
-
-    if(Object.keys(temp).length == 0){0
+/*    if(Object.keys(temp).length == 0){
       this.channel.push("getNextPos", {id: pawn.id, color: pawn.player_color})
                 .receive("ok", this.renderView.bind(this));
-    }
+    }*/
+    //console.log('at getNextMove')
+    //return this.state.validSquares
     //console.log(pawn);
     /*let makepawns={};
     let dictmove1 = {};
@@ -255,7 +259,9 @@ class Checkers extends React.Component {
   }
 
   movepawn(id,pawn_id,color){
-
+  	console.log(id)
+  	console.log(pawn_id)
+  	console.log(color)
     this.channel.push("movepawn", {id: id, pawn_id: pawn_id, color: color})
                 .receive("ok", this.renderView.bind(this));
   
@@ -275,23 +281,36 @@ class Checkers extends React.Component {
     var valid_pos2;
 
     // Get the Pawn Object 
-    var selected_pawn;
-    var valid_move1;
-    var valid_move2;
-    if (this.state.previously_clicked !== 100){
-          this.setState({previously_clicked:100})
-          this.setState({previous_player:'none'})
-          this.setState({validSquares:{}})  
-    }
-    else{
+    //var selected_pawn;
+    //var valid_move1;
+    //val idmovear valid_move2;
+
+    console.log("this is prev click");
+    console.log(this.state.previously_clicked);
+    //if (this.state.previously_clicked !== 100){
+    //      this.setState({previously_clicked:100})
+    //      this.setState({previous_player:'none'})
+    //      this.setState({validSquares:{}})  
+    //}
+    //else{
           //CHange made for setstate
           //pawn_id = this.state.pawns[color][pawn_id]
-          //this.getNextMove(pawn_id,color);
+          //this.getNextMove.bind(this,pawn_id,color);
           this.setState({previously_clicked:pawn_id})
           this.setState({previous_player:color})
-    }
+          //this.getNextMove.bind(pawn_id,color);
+          console.log('Setting the Dict')
+    	  let temp = this.state.validSquares
+
+    	  //if(Object.keys(temp).length == 0){
+    	  //console.log('InsideSetting the Dict')
+      	  this.channel.push("getNextPos", {id: pawn_id, color: color})
+    	              .receive("ok", this.renderView.bind(this));
+    //}
+
+    //}
     
-    if(color == 'red')
+    /*if(color == 'red')
     {
       selected_pawn = this.state.pawns.red[pawn_id];
       console.log(this.state.pawns.red[pawn_id].position+7)
@@ -302,9 +321,9 @@ class Checkers extends React.Component {
       console.log(this.state.pawns.black[pawn_id].position-7)
       console.log(this.state.pawns.black[pawn_id].position-9)
     }
-
+*/
     //console.log(selected_pawn);
-  }
+ }
 
   render()
   {
@@ -366,14 +385,21 @@ function Square(props) {
             p_id = pawns.black[i].id
           }
   } 
-  let validmove = {};
+
+  if(props.dict[id] !== undefined){
+          clickable = true;
+          highlight_Square = true;
+          normal_Square = false;
+  }
+  /*let validmove = {};
   if (props.player == 'red'){
       let pawn = pawns.red[props.prevclick];
-      console.log(pawn);
+      //	console.log(pawn);
       //if (pawns.red[props.prevclick].position == id){
-      validmove = props.possibleNextMove(pawn,color);
-      //props.pawnClicked(id, p_id, found)
+      //validmove = props.possibleNextMove(pawn,color);
+      //props.pawnClicked(21, 10, "red")
       //}
+      
       if(props.dict[id] !== undefined){
           //console.log(id)
           clickable = true;
@@ -393,7 +419,7 @@ function Square(props) {
             highlight_Square = true;
             normal_Square = false;
       }
-  }
+  }*/
 
   //  console.log(found)
   //  console.log(p_id)
