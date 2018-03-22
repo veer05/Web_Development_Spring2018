@@ -1,0 +1,36 @@
+<h2>Listing Works</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task title</th>
+      <th>Task body</th>
+      <th>Assigned by</th>
+      <th>Assigned to</th>
+      <th>Done</th>
+      <th>Done time</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for work <- @works do %>
+    <tr>
+      <td><%= work.task_title %></td>
+      <td><%= work.task_body %></td>
+      <td><%= work.assigned_by %></td>
+      <td><%= work.user.name %></td>
+      <td><%= work.done %></td>
+      <td><%= work.done_time %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: work_path(@conn, :show, work), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: work_path(@conn, :edit, work), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: work_path(@conn, :delete, work), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Work", to: work_path(@conn, :new) %></span>

@@ -1,0 +1,33 @@
+<h2>Show Todo</h2>
+
+<ul>
+
+  <li>
+    <strong>Task title:</strong>
+    <%= @todo.task_title %>
+  </li>
+
+  <li>
+    <strong>Task body:</strong>
+    <%= @todo.task_body %>
+  </li>
+
+  <li>
+    <strong>Assigned by:</strong>
+    <%= @todo.assigned_by %>
+  </li>
+
+  <li>
+    <strong>Done:</strong>
+    <%= @todo.done %>
+  </li>
+
+  <li>
+    <strong>Done time:</strong>
+    <%= @todo.done_time %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: todo_path(@conn, :edit, @todo) %></span>
+<span><%= link "Back", to: todo_path(@conn, :index) %></span>

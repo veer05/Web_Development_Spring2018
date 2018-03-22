@@ -1,0 +1,373 @@
+function loc() {
+  switch (window.location.pathname) {
+    case '/':
+      return "/splash/";
+    break;
+
+    default:
+      return window.location.pathname + window.location.hash;
+    break;
+  }
+}
+function lowResolution() {
+  var width = $(window).width();
+  if (width <= 1024)
+    return true;
+  return false;
+}
+
+  var createdNetworkId = null;
+
+  function generateCourseNumber(email) {
+    var courseNumber = email;
+    var parts = email.split("@");
+    if (parts.length == 2) {
+      courseNumber = parts[0];
+    }
+    return courseNumber;
+  }
+
+  function redirectToDashboard() {
+    //alert("redirecting to dashboard");
+    setTimeout('window.location = "'+ dashboardPath +'"', 200);
+  }
+
+  function autoLoginAndEnroll() {
+    var theInputData = {nid : createdNetworkId, permission : 15};
+    PA.call_pj("user.login_and_enroll", theInputData, null, function(data) {
+      redirectToDashboard();
+    }, function (err) {
+      alert(err);
+    });
+  }
+
+  function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    return pattern.test(emailAddress);
+  }
+
+  function isValidPassword(password) {
+    if (password && password.length >= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  function doLoginError(theField,msg) {
+    //add error class to container div
+    $(theField).closest('.formField').addClass('has_error');
+
+    //stick error message right after field
+    $(theField).after('<div class="error">'+msg+'</div>');
+  }
+  function clearError(theField) {
+    //remove error class from container div
+    $(theField).closest('.formField').removeClass('has_error');
+
+    //remove error message
+    $(theField).siblings('.error').remove();
+  }
+
+$(document).ready(function() {
+   $("#fancyDashboardClose").live('click',function(){
+      $.fancybox.close();
+      $(this).remove();
+      return false;
+   });
+
+  var opened = 0;
+  //$('a[rel=fancybox-dashboard]').fancybox();
+  $('a[rel=fancybox-dashboard]').click(function(e){
+    e.preventDefault();
+    if (lowResolution()) {
+      window.location = "/sandbox/tutorial";
+    } else {
+      $.fancybox({
+        'autoScale'		: false,
+        'title'			: this.title,
+        'width'			: '100%',
+        'height'		: '100%',
+        'autoDimensions': false,
+        'href'			: "/sandbox/tutorial2?close=fancy",
+        'type'			: 'iframe',
+        'showCloseButton' : false,
+        'closeBtn': false,
+        'onClosed'  : function() {
+        $("#fancyDashboardClose").remove();
+          var dur = (new Date()).getTime() - opened;
+          dur = dur / 1000;
+          var data = {'view_time': dur};
+          PA.trackEvent(true, 'try_it_now_closed', loc(), data);
+
+          //TODO track how long it was open
+          //pageTracker._trackPageview("/index");
+          //PA.trackEvent(true, 'try_it_now_closed', loc(), data);
+        }
+      });
+      //pageTracker._trackPageview("try_it_now"); //old GA tracking
+      // _gaq.push(['_trackPageview', 'try_it_now']); //new GA tracking
+      //PA.trackEvent(true, 'try_it_now', loc());
+      opened = (new Date()).getTime();
+    }
+    return false;
+  });
+
+  $('a[rel=fancybox-dashboard-warm]').click(function(){
+    if (lowResolution()) {
+      window.location = "/sandbox/warm";
+    } else {
+      $.fancybox({
+        'autoScale'		: false,
+        'title'			: this.title,
+        'width'			: '100%',
+        'height'		: '100%',
+        'autoDimensions': false,
+        'href'			: "/sandbox/tutorial2?close=fancy",
+        'type'			: 'iframe',
+        'closeBtn' : false,
+        'showCloseButton': false,
+        'onClosed'  : function() {
+        $("#fancyDashboardClose").remove();
+          var dur = (new Date()).getTime() - opened;
+          dur = dur / 1000;
+          var data = {'view_time': dur};
+          PA.trackEvent(true, 'try_it_now_warm_closed', loc(), data);
+        }
+      });
+      dataLayer.push({'event': 'VPTracker', 'VPageView':  '/try_it_now'});
+      opened = (new Date()).getTime();
+    }
+    return false;
+  });
+
+  $('a[rel=fancybox-dashboard-faq]').click(function(){
+    if (lowResolution()) {
+      window.location = "/modules/inst_faq?close=fancy";
+    } else {
+      $.fancybox({
+        'autoScale'		: false,
+        'title'			: this.title,
+        'width'			: '100%',
+        'height'		: '100%',
+        'autoDimensions': false,
+        'href'			: "/modules/inst_faq?close=fancy",
+        'type'			: 'iframe',
+        'showCloseButton' : false,
+        'closeBtn': false,
+        'onClosed'  : function() {
+        $("#fancyDashboardClose").remove();
+          var dur = (new Date()).getTime() - opened;
+          dur = dur / 1000;
+          var data = {'view_time': dur};
+          PA.trackEvent(true, 'faq_closed', loc(), data);
+        }
+      });
+      PA.trackEvent(true, 'instructor_faq', loc());
+      opened = (new Date()).getTime();
+    }
+    return false;
+  });
+
+  $('#FallReminderButton').click(function() {
+    PA.trackEvent(true, 'signup_reminder_shown', loc());
+  });
+
+  $('#HeaderButtonReminder').click(function() {
+    PA.trackEvent(true, 'signup_reminder_shown', loc());
+  });
+
+  $('a[rel=fancybox]').fancybox({
+    'centerOnScroll': true,
+    'hideOnOverlayClick': false
+  });
+
+  $('div[rel=fancybox-amazon]').click(function() {
+    var id = $(this).attr("id");
+    var vid = $(this).attr("rev");
+    jwplayer('OverviewVideo').setup({
+      levels: [
+        { file: 'https://d26vy68u0k3u92.cloudfront.net/homepage/piazza-'+vid+'-480.mp4' },
+        { file: 'https://d26vy68u0k3u92.cloudfront.net/homepage/piazza-'+vid+'-480.ogv' },
+        { file: 'https://d26vy68u0k3u92.cloudfront.net/homepage/piazza-'+vid+'-480.webm' }
+      ],
+      'centerOnScroll': true,
+      'controlbar': 'over',
+      'bufferlength': '5',
+      'autostart': 'true',
+      'width': '640',
+      'height': '360',
+      'modes': [
+        {type: 'html5'},
+        {type: 'download'}
+      ]
+    });
+
+    $.fancybox({
+      'autoScale'		: false,
+      'title'			: this.title,
+      'width'			: 640,
+      'height'		    : 360,
+      'autoDimensions'  : false,
+      'href'			: "#OverviewVideo",
+      'type'			: 'inline',
+      'onClosed'                : function() {
+        var dur = (new Date()).getTime() - opened;
+        dur = dur / 1000;
+        var data = {'view_time': dur};
+        PA.trackEvent(true, "video_closed/"+id, loc(), data);
+      }
+    });
+
+    var video_name = id;
+    if (video_name == "WatchVideoButton")
+      video_name = "WelcomeToPiazza";
+
+    //pageTracker._trackPageview("video_view/" + video_name);
+    //_gaq.push(['_trackPageview', 'video_view/' + video_name]); //new GA tracking
+
+
+    PA.trackEvent(true, "video_view/" + video_name, loc());
+    opened = (new Date()).getTime();
+    //pageTracker._trackPageview("/video_view/" + name_video($(this)));
+  });
+  $('a[rel=fancybox-amazon]').click(function() {
+    var id = $(this).attr("id");
+    if (id == "WatchVideoProduct")
+      PA.call_pj("generic.event_to_requests", {event: "homepage.watch_video_product"},1);
+    var vid = $(this).attr("rev");
+    var domain = 'https://d26vy68u0k3u92.cloudfront.net/';
+    // not all videos that are loaded using this code are actually in the same place, so we need to have some weird logic here
+    if(vid === 'intro') {
+      domain = domain + 'piazza-intro';
+    } else {
+      domain = domain + 'help';
+    }
+    if(vid !== 'tags') {
+      domain = domain + '/piazza-';
+    } else {
+      domain = domain + '/';
+    }
+    domain = domain + vid + (vid === 'tags' ? '' : '-480') + '.';
+    jwplayer('OverviewVideo').setup({
+      levels: [
+        { file: domain + 'mp4' },
+        { file: domain + 'ogv' },
+        { file: domain + 'webm' }
+      ],
+      'centerOnScroll': true,
+      'controlbar': 'over',
+      'bufferlength': '5',
+      'autostart': 'true',
+      'width': '640',
+      'height': '360',
+      'modes': [
+        {type: 'html5'},
+        {type: 'download'}
+      ]
+    });
+
+    $.fancybox({
+      'autoScale'		: false,
+      'title'			  : this.title,
+      'width'       : 640,
+      'height'      : 360,
+      'autoDimensions'  : true,
+      'href'			: "#OverviewVideo_wrapper",
+      'type'			: 'inline',
+      'onClosed'                : function() {
+        var dur = (new Date()).getTime() - opened;
+        dur = dur / 1000;
+        var data = {'view_time': dur};
+        PA.trackEvent(true, "video_closed/"+id, loc(), data);
+      }
+    });
+
+    var video_name = id;
+    if (video_name == "WatchVideoButton")
+      video_name = "WelcomeToPiazza";
+
+    //pageTracker._trackPageview("video_view/" + video_name);
+    dataLayer.push({'event': 'VPTracker', 'VPageView':  '/video_view/' + video_name});
+
+
+    PA.trackEvent(true, "video_view/" + video_name, loc());
+    opened = (new Date()).getTime();
+    //pageTracker._trackPageview("/video_view/" + name_video($(this)));
+    return false;
+  });
+
+});
+
+function submitFallReminder() {
+  var valid = validateFallReminderForm();
+
+  // Show a "Thank You" message if there were no errors.
+  //if (valid) {
+  //  PA.trackEvent(true, "signup_reminder", loc());
+  //  $('#FallReminderForm').find('.form').hide();
+  //  var name  = $('#FallReminderName').val();
+  //  var email = $('#FallReminderEmail').val();
+  //  PA.call("user.fall_reminder", {email:email, name:name}, 1);
+  //  $('#jobs-form-reminder').slideUp();
+  //  $('#jobs-block-reminder-thanks').slideDown().delay(2000).queue(function() {
+  //    $.fancybox.close();
+  //  });
+  //}
+}
+function resetFallReminderForm() {
+  var form = $('#FallReminderForm');
+  form.find('.thankYou').hide();
+  form.find('.form').show();
+  form.find('input[type="text"]').val('');
+  form.find('.errorMessage').hide();
+}
+function validateFallReminderForm() {
+  var valid = true;
+
+  // Retrieve the user's input.
+  var name  = $('#FallReminderName').val();
+  var email = $('#FallReminderEmail').val();
+
+  // Validate the name input.
+  if (name.length == 0) {
+    $('#FallReminderForm').find('.errorMessage.name').show();
+    valid = false;
+  } else {
+    $('#FallReminderForm').find('.errorMessage.name').hide();
+  }
+
+  // Validate the email input.
+  if (!validateEmail(email)) {
+    $('#FallReminderForm').find('.errorMessage.email').show();
+    valid = false;
+  } else {
+    $('#FallReminderForm').find('.errorMessage.email').hide();
+  }
+
+  return valid;
+}
+function validateEmail(email) {
+  var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return email.match(reg);
+}
+{…[qK÷      ZísZís>«°ÅZªP˜   .    :https://piazza.com/js/splash/splash.js?v=2141 necko:classified 1 strongly-framed 1 security-info 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 request-method GET response-head HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: max-age=2678400
+Content-Type: application/javascript
+Date: Sun, 25 Feb 2018 08:23:20 GMT
+ETag: "5a90a11a-2c7b"
+Expires: Wed, 28 Mar 2018 08:23:20 GMT
+Last-Modified: Fri, 23 Feb 2018 23:17:46 GMT
+Server: nginx/1.10.1
+Content-Length: 11387
+ original-response-headers Accept-Ranges: bytes
+Cache-Control: max-age=2678400
+Content-Type: application/javascript
+Date: Sun, 25 Feb 2018 08:23:20 GMT
+ETag: "5a90a11a-2c7b"
+Expires: Wed, 28 Mar 2018 08:23:20 GMT
+Last-Modified: Fri, 23 Feb 2018 23:17:46 GMT
+Server: nginx/1.10.1
+Content-Length: 11387
+Connection: keep-alive
+ uncompressed-len 0 net-response-time-onstart 295 net-response-time-onstop 298   ,{

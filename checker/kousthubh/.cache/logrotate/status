@@ -1,0 +1,10 @@
+logrotate state -- version 2
+"/home/kousthubh/.cache/upstart/ssh-agent.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/indicator-sound.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/upstart-event-bridge.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/gpg-agent.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/dbus.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/update-notifier-release.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/gnome-keyring-ssh.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/startxfce4.log" 2018-3-20-19:39:41
+"/home/kousthubh/.cache/upstart/logrotate.log" 2018-3-20-19:39:41

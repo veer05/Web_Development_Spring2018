@@ -1,0 +1,40 @@
+<h2>Show Work</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @work.user.name %>
+  </li>
+
+
+  <li>
+    <strong>Task title:</strong>
+    <%= @work.task_title %>
+  </li>
+
+  <li>
+    <strong>Task body:</strong>
+    <%= @work.task_body %>
+  </li>
+
+  <li>
+    <strong>Assigned by:</strong>
+    <%= @work.assigned_by %>
+  </li>
+
+  <li>
+    <strong>Done:</strong>
+    <%= @work.done %>
+  </li>
+
+  <li>
+    <strong>Done time:</strong>
+    <%= @work.done_time %>
+  </li>
+
+
+</ul>
+
+<span><%= link "Edit", to: work_path(@conn, :edit, @work) %></span>
+<span><%= link "Back", to: work_path(@conn, :index) %></span>
