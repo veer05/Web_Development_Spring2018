@@ -1,9 +1,6 @@
 @import "bootstrap";
 
-// Start of Code
-body { 
-    font-size: 20pt; 
-}
+
 
 #gameboard {
 
@@ -12,6 +9,9 @@ body {
     margin: 0 auto;
 }
 
+body { 
+    font-size: 20pt; 
+}
 .pawn {
 
     width: 80%;
@@ -73,4 +73,3 @@ body {
     font-size: 30px;
 }
 
-// End of code
