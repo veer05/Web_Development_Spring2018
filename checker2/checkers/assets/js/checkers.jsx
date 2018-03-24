@@ -23,8 +23,10 @@ class Checkers extends React.Component {
    this.channel.join()
         .receive("ok", this.renderView.bind(this))
         .receive("error",resp => {console.log("unable to join",resp)});
-   this.channel.on("assignPlayer", payload => {this.setState(payload.game)})
-   this.channel.on("movepawn", payload => {this.setState(payload.game)})
+   this.channel.on("assignPlayerOne", payload => {this.setState(payload.game)})
+   this.channel.on("assignPlayerTwo", payload => {this.setState(payload.game)})
+   this.channel.on("movepawn", payload => {this.setState(payload.game)}) 
+   this.channel.on("Reset", payload => {this.setState(payload.game)}) 
    //this.channel.on("movepawn", resp => {this.render.bind(this)})
    //this.channel.on("getNextPos", payload => {this.setState(payload.game)})
    //this.channel.on("movepawn", {id: id, pawn_id: pawn_id, color: color})
@@ -99,22 +101,108 @@ class Checkers extends React.Component {
     
  }
 
- setPlayer(){
-  this.channel.push("assignPlayer", {id: window.userName})
+ setReset(){
+    this.channel.push("Reset", {id: window.userName})
+          .receive("ok", this.renderView.bind(this));
+ }
+ setPlayerOne(){
+  this.channel.push("assignPlayerOne", {id: window.userName})
+          .receive("ok", this.renderView.bind(this));
+ }
+
+  setPlayerTwo(){
+  this.channel.push("assignPlayerTwo", {id: window.userName})
           .receive("ok", this.renderView.bind(this));
  }
 
   render()
   {
+
+    var isPlayer = false;
+    if (this.state.player1 == window.userName || this.state.player2 == window.userName){
+      isPlayer = true;
+    }
+    
+    if (this.state.p1Score == 12 || this.state.p2Score == 12)
+    {
+      setTimeout(() => {
+              alert("Congrats you have completed the game \n" + 
+              "Your Winner is :")
+              this.setReset();
+      }, 1000);
+    }
     if (this.state.pawns.length != 0){
       return(
         <div>
-         <button className="primary-btn" onClick={this.setPlayer.bind(this)}>
-          Join the game
-          </button>
-         <div id="gameboard">
-            {this.createSquares()}
+          <div className="text-center">
+              {this.state.player1 == "none" ?
+              <span>
+              <p> This Player will control  the red pawns </p>
+              <button class="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
+                  Join as Player 1
+              </button>
+              </span> 
+              :null}
           </div>
+          <br/>
+
+          <div class="row justify-content-between">
+            
+            <div class="col-2 d-flex align-items-center" >
+              {this.state.player1 == "none" ? null :
+                  <span>  
+                  <h2> Welcome,</h2>
+                  <h3>{this.state.player1}</h3>
+                  <h3> Playing as color : Red </h3>
+                  <p> Pawns Removed </p>
+                  <p> {this.state.p1Score}</p>
+                  </span>}
+            </div>
+            
+            <div class="col-8"> 
+              <div id="gameboard">
+                  {this.createSquares()}
+              </div>
+            </div>
+            
+            <div class="col-2 d-flex align-items-center">
+              {this.state.player2 == "none" ? null : 
+                  <span>
+                  <h2> Welcome,</h2>
+                  <h3>{this.state.player2}</h3>
+                  <h3> Playing as color : Black </h3>
+                  <p> Pawns Removed </p>
+                  <p>{this.state.p2Score}</p> 
+                  </span>}
+            </div>
+
+          </div>
+          <br/>
+          <div className="text-center">
+              {this.state.player2 == "none" ?
+              <span>
+              <p> This Player gets the black pawns</p>
+              <button class="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
+                      Join as Player 2
+              </button>
+              </span>
+              :null}
+          </div>
+          <div className = "row">
+              <div className="col-md-6">
+                  {isPlayer ? 
+                  <button class="btn btn-primary" onClick={this.setReset.bind(this)}>
+                      Reset
+                  </button>
+                  :null}
+              </div>
+              <div className="col-md-6 text-right" id='score'>
+                    <button class="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
+                      Leave the Game
+                    </button>
+              </div>
+          </div>
+
         </div>
         );
       }
@@ -130,11 +218,11 @@ function getColor(id){
     case((parseInt(id / 8)) % 2 == 0):
                                   if(id % 2 == 0)
                                   {
-                                      return "#d5c8b8";//1#9f0707
+                                      return "#d5c8b8"; //1#9f0707
                                   }
                                   else
                                   {
-                                      return "#353230";//2#090909
+                                      return "#353230"; //2#090909
                                   }
     case(id % 2 == 0):
                       return "#353230";

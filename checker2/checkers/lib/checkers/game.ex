@@ -1,15 +1,12 @@
 defmodule Checkers.Game do
   
   #This function will assign the player to the game state
-  def assignPlayer(game,playername) do
-      IO.inspect('Inside assignPlayer')
-      IO.inspect(playername)
-      IO.inspect(game)
-      cond do 
-        game.player1 == "none" -> %{game | player1: playername }
-        game.player2 == "none" -> %{game | player2: playername }
-        true -> game
-      end
+  def assignPlayerOne(game,playername) do
+        %{game | player1: playername }
+  end
+
+  def assignPlayerTwo(game,playername) do
+    %{game | player2: playername }
   end
 
   # create new instance of the game
@@ -24,6 +21,10 @@ defmodule Checkers.Game do
         nextChance: "red",
         player1: "none",
         player2: "none",
+        p1Score: 0,
+        p2Score: 0,
+        p1Won: false,
+        p2Won: false,   
     }
 	end
 
@@ -39,6 +40,10 @@ defmodule Checkers.Game do
         nextChance: game.nextChance,
         player1: game.player1,
         player2: game.player2,
+        p1Score: game.p1Score,
+        p2Score: game.p2Score,
+        p1Won: game.p1Won,
+        p2Won: game.p2Won,
     } 
   	end
 
@@ -106,7 +111,6 @@ defmodule Checkers.Game do
     #remove the pawns if jump happens
     newRemovePawns = []
     if((length rm_pawn) != 0) do
-
       pawn = Enum.at(rm_pawn,0)
       newRemovePawns = Enum.map(removePawns, fn(x) -> 
         if(x.id == pawn.id) do
@@ -114,15 +118,31 @@ defmodule Checkers.Game do
         else
           newRemovePawns = newRemovePawns ++ x
       end end)
+      
+      if pawn.player_color == "red" do
+        score = game[:p2Score]
+        score = score + 1
+        game = %{game | p2Score: score }
+      else
+        score = game[:p1Score]
+        score = score + 1
+        game = %{game | p1Score: score }
+      end
+
     else
       newRemovePawns = newRemovePawns ++ removePawns
     end
+
+    toEndGame = checkEndGame(game,removePawns)
 
     if(color == "red") do
       newPawns = %{"red" => newSelectedPawns, "black" => newRemovePawns}
     else
       newPawns = %{"black" => newSelectedPawns, "red" => newRemovePawns}
     end
+    
+
+
     #set the game states with the updated values
     game = Map.put(game, :pawns, newPawns)
     game = %{game | previously_clicked: 100 }
@@ -133,11 +153,20 @@ defmodule Checkers.Game do
     else
       game = %{game | nextChance: "red"}
     end
+
+
+  end
+
+  #Check if the game is to be ended
+  def checkEndGame(game,pawnlist) do
+      validPawn = Enum.filter(pawnlist, fn(x) -> x.position != -100 
+      end)
+
+
   end
 
   #remove the pawn selected for removal
   def pawnToRemove(game,remove_pawn, pos) do
-
     pawns = game[:pawns]
     removePawns = pawns[remove_pawn]
 
@@ -203,7 +232,12 @@ defmodule Checkers.Game do
         true -> 
                 pos1
       end  
-      validPos = %{pos0 => true, pos1 => true}
+      if pos0 < 64 do
+        validPos = Map.merge(validPos, %{pos0 => true})
+      end
+      if pos1 < 64 do  
+        validPos = Map.merge(validPos, %{pos1 => true})
+      end
   end
 
   #get red position when opponent is black
@@ -232,8 +266,14 @@ defmodule Checkers.Game do
                 pos1 = 100
         true -> 
                 pos1
-      end  
-      validPos = %{pos0 => true, pos1 => true}
+      end
+
+      if pos0 < 64 do
+        validPos = Map.merge(validPos, %{pos0 => true})
+      end
+      if pos1 < 64 do  
+        validPos = Map.merge(validPos, %{pos1 => true})
+      end
   end
 
   #get next position for the red
@@ -330,7 +370,12 @@ defmodule Checkers.Game do
         true ->
                 pos1
       end  
-      validPos = %{pos0 => true, pos1 => true} 
+      if pos0 < 64 do
+        validPos = Map.merge(validPos, %{pos0 => true})
+      end
+      if pos1 < 64 do  
+        validPos = Map.merge(validPos, %{pos1 => true})
+      end 
   end
 
   #get next black's pos when the oppenent is red
@@ -359,7 +404,12 @@ defmodule Checkers.Game do
         true -> 
                 pos1
       end  
-      validPos = %{pos0 => true, pos1 => true}
+      if pos0 < 64 do
+        validPos = Map.merge(validPos, %{pos0 => true})
+      end
+      if pos1 < 64 do  
+        validPos = Map.merge(validPos, %{pos1 => true})
+      end
   end
 
 end

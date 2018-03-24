@@ -4,8 +4,8 @@
 
 #gameboard {
 
-    height: 800px;
-    width: 800px;
+    height: 600px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -43,8 +43,8 @@ body {
 
 .square {
 
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border: 2px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -55,12 +55,13 @@ body {
     font-family: "Arial Narrow";
     font-weight: bold;
     font-size: 30px;
+    background-image: url("https://www.transparenttextures.com/patterns/arabesque.png");
 }
 
 .square_highlight {
     
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border: 10px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -73,8 +74,23 @@ body {
     font-size: 30px;
 }
 
+.bkimage {
+     background-image: url("https://st2.depositphotos.com/2899505/7120/v/950/depositphotos_71202923-stock-illustration-wood-texture-web-page-background.jpg")
+}
 
+.bg {
+    /* The image used */
+    //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
+    background-image: url("https://www.transparenttextures.com/patterns/flowers.png");
 
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 
 .div-with-bg
