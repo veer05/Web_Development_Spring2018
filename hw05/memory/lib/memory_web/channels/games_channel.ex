@@ -32,8 +32,15 @@ defmodule MemoryWeb.GamesChannel do
     game1 = Game.flip(game0, name)
     Memory.GameBackup.save(socket.assigns[:name],game1)
     socket = assign(socket, :game, game1)
+    broadcast! socket, "flip", %{ "game" => Game.client_view(game1)} 
     {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
+  end
 
+  def handle_in("broadcast", %{"id" => name}, socket) do
+  	IO.inspect("In Channel");
+    game0 = socket.assigns[:game]
+    broadcast socket, "broadcast", game0	
+  	{:noreply, socket}
   end
 
   def handle_in("after_delay", %{"id" => nam}, socket) do
@@ -43,4 +50,6 @@ defmodule MemoryWeb.GamesChannel do
     socket = assign(socket, :game, game6)
     {:reply, {:ok, %{ "game" => Game.client_view(game6)}}, socket}
   end
+
+
 end

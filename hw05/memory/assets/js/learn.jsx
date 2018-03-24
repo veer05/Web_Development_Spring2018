@@ -27,6 +27,7 @@ class MainClass extends React.Component{
                  this.channel.join()
                   .receive("ok", this.gotView.bind(this))
                   .receive("error", resp => { console.log("Unable to join", resp) });
+                  this.channel.on("flip", payload => {this.setState(payload.game)})
         }
 
 gotView(view) {
@@ -44,6 +45,7 @@ gotView(view) {
     if (this.state.halt == 0){
     this.channel.push("flip",{ id: name})
       .receive("ok", this.gotView.bind(this));}
+    console.log("Here after Set State")
   }  
 
 sendReset(){

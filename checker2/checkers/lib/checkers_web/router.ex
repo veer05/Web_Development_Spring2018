@@ -16,7 +16,9 @@ defmodule CheckersWeb.Router do
   scope "/", CheckersWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+  #get "/game", PageController, :game
+
+  get "/", PageController, :index
     # Adding route for game
     get "/game/:game", PageController, :game
   end

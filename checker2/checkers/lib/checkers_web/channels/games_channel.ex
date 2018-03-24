@@ -13,34 +13,55 @@ defmodule CheckersWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-
-      game = Game.new()
+      IO.inspect(payload)
+      #[gamename, playername] = String.split(name, " ")
+      game = Checkers.GameBackup.load(name) || Game.new()
+      #if (game.player1 == "none" or game.player2 == "none") do
+      #    game = Game.assignPlayer(game,payload.playername)
+      #end      
       socket = socket
       |> assign(:game, game)
       |> assign(:name, name)
+      Checkers.GameBackup.save(socket.assigns[:name],game)
       {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
-  
+  def handle_in("assignPlayer", %{"id" => id}, socket) do
+     game = Checkers.GameBackup.load(socket.assigns[:name])
+     game1 = Game.assignPlayer(game,id)
+     Checkers.GameBackup.save(socket.assigns[:name],game1)
+     socket = assign(socket, :game, game1)
+     broadcast! socket, "assignPlayer", %{ "game" => Game.client_view(game1)}
+     {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
+  end
 
   def handle_in("movepawn", %{"id" => id, "pawn_id" => pawn_id, "color" => color}, socket) do
     IO.inspect("inside channel movePawn")
-    IO.inspect(id)
-    game0 = socket.assigns[:game]
-    game1 = Game.movepawn(game0,id,pawn_id,color)
+    IO.inspect(socket)
+
+    game = Checkers.GameBackup.load(socket.assigns[:name])
+    game1 = Game.movepawn(game,id,pawn_id,color)
+    IO.inspect('this is in handlein_movepawn')
+    IO.inspect(socket.assigns[:name])
+    Checkers.GameBackup.save(socket.assigns[:name],game1)
     socket = assign(socket, :game, game1)
+    broadcast! socket, "movepawn", %{ "game" => Game.client_view(game1)}
     {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
     
   end
 
   def handle_in("getNextPos", %{"id" => id, "color" => color}, socket) do
     IO.inspect("inside channel getNextPos")
-    game0 = socket.assigns[:game]
+    game0 = Checkers.GameBackup.load(socket.assigns[:name]) ||  Game.new()    
     game1 = Game.getNextPos(game0,id,color)
+    IO.inspect('this is in handlein_getNextPos')
+    IO.inspect(socket.assigns[:name])
+    Checkers.GameBackup.save(socket.assigns[:name],game1)
     socket = assign(socket, :game, game1)
+    broadcast! socket, "getNextPos", %{ "game" => Game.client_view(game1)}
     {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
     
   end

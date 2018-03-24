@@ -1,8 +1,19 @@
 defmodule Checkers.Game do
+  
+  #This function will assign the player to the game state
+  def assignPlayer(game,playername) do
+      IO.inspect('Inside assignPlayer')
+      IO.inspect(playername)
+      IO.inspect(game)
+      cond do 
+        game.player1 == "none" -> %{game | player1: playername }
+        game.player2 == "none" -> %{game | player2: playername }
+        true -> game
+      end
+  end
 
   # create new instance of the game
 	def new do
-	IO.inspect("oin new")
     %{  
        	pawns: %{"red" => createPlayerPawns("red"), 
        	         "black" => createPlayerPawns("black")},
@@ -11,6 +22,8 @@ defmodule Checkers.Game do
        	previous_player: "none",
         validSquares: %{},
         nextChance: "red",
+        player1: "none",
+        player2: "none",
     }
 	end
 
@@ -24,6 +37,8 @@ defmodule Checkers.Game do
        	previous_player: game.previous_player,
         validSquares: game[:validSquares],
         nextChance: game.nextChance,
+        player1: game.player1,
+        player2: game.player2,
     } 
   	end
 
@@ -153,7 +168,9 @@ defmodule Checkers.Game do
       true ->
                     makePawns = getNextBlackMove(game,pawn)
     end
-    #set the current value for valid squares 
+    #set the current value for valid squares
+    IO.inspect('this is getNextPos')
+    IO.inspect(game) 
     game = Map.put(game, :validSquares, makePawns)
     game = %{game | previously_clicked: id }
     game = %{game | previous_player: color }

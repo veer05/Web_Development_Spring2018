@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 
 export default function game_init(root,channel) {
-  console.log('In game_init Below is channel object');
-  console.log(channel);
   ReactDOM.render(<Checkers channel={channel} />, root);
 }
  
@@ -15,26 +13,44 @@ class Checkers extends React.Component {
     this.channel = props.channel;
     this.state = {
        pawns: [],
-       validSquares: {},         
+       validSquares: {},
+       player1: null,
+       player2: null,
+       spectator: false,         
    };
    console.log("Before Channel");
-   this.getSquares = this.getSquares.bind(this);
+   this.createSquares = this.createSquares.bind(this);
    this.channel.join()
         .receive("ok", this.renderView.bind(this))
         .receive("error",resp => {console.log("unable to join",resp)});
+   this.channel.on("assignPlayer", payload => {this.setState(payload.game)})
+   this.channel.on("movepawn", payload => {this.setState(payload.game)})
+   //this.channel.on("movepawn", resp => {this.render.bind(this)})
+   //this.channel.on("getNextPos", payload => {this.setState(payload.game)})
+   //this.channel.on("movepawn", {id: id, pawn_id: pawn_id, color: color})
+   //       .receive("ok", this.renderView.bind(this)); 
  }
+
+ render(view){
+    console.log('Hit render')
+    this.setState(view.game);
+    console.log("this is after")
+    console.log(this.state)
+  }
 
  renderView(view){
 
     this.setState(view.game);
+    console.log("this is after render")
+    console.log(this.state)
   }
 
-  getSquares()
+  createSquares()
   {
     let allSquares = [];
     for(let i=0;i<64;i++)
     {
-      let oneSquare = <Square id={i} key={i} pawns={this.state.pawns} prevclick={this.state.previously_clicked} player={this.state.previous_player} pawnClicked={this.pawnClicked.bind(this)}
+      let oneSquare = <EachCheck id={i} key={i} pawns={this.state.pawns} prevclick={this.state.previously_clicked} player={this.state.previous_player} pawnClicked={this.pawnClicked.bind(this)}
       dict = {this.state.validSquares}
       movepawn={this.movepawn.bind(this)}/>;
       allSquares.push(oneSquare);
@@ -53,9 +69,14 @@ class Checkers extends React.Component {
   }
 
   movepawn(id,pawn_id,color){
-
+    console.log("This is Move Pawn")
+    console.log(window.userName)
+    console.log(this.state)
+    if((this.state.player1 == window.userName && this.state.nextChance == "red") ||
+       (this.state.player2 == window.userName && this.state.nextChance == "black")){  
     this.channel.push("movepawn", {id: id, pawn_id: pawn_id, color: color})
                 .receive("ok", this.renderView.bind(this));
+    }
   }
 
   pawnClicked(id,pawn_id,color,player)
@@ -64,24 +85,37 @@ class Checkers extends React.Component {
     var valid_pos2;
     this.setState({previously_clicked:pawn_id})
     this.setState({previous_player:color})
-    console.log('Setting the Dict')
+    //console.log('Setting the Dict')
     let temp = this.state.validSquares
-
-    if(this.state.nextChance === color){
-      
+    console.log("This is pawnCLicked")
+    console.log(this.state)
+   //if(this.state.nextChance === color){
+    if((this.state.player1 == window.userName && this.state.nextChance == "red" && color == "red") ||
+       (this.state.player2 == window.userName && this.state.nextChance == "black" 
+       && color == "black")){  
       this.channel.push("getNextPos", {id: pawn_id, color: color})
                .receive("ok", this.renderView.bind(this));
     }
     
  }
 
+ setPlayer(){
+  this.channel.push("assignPlayer", {id: window.userName})
+          .receive("ok", this.renderView.bind(this));
+ }
+
   render()
   {
     if (this.state.pawns.length != 0){
       return(
+        <div>
+         <button className="primary-btn" onClick={this.setPlayer.bind(this)}>
+          Join the game
+          </button>
          <div id="gameboard">
-            {this.getSquares()}
+            {this.createSquares()}
           </div>
+        </div>
         );
       }
     else{
@@ -90,7 +124,29 @@ class Checkers extends React.Component {
   }
 }
 
-function Square(props) {
+function getColor(id){
+  switch(true){
+
+    case((parseInt(id / 8)) % 2 == 0):
+                                  if(id % 2 == 0)
+                                  {
+                                      return "#d5c8b8";//1#9f0707
+                                  }
+                                  else
+                                  {
+                                      return "#353230";//2#090909
+                                  }
+    case(id % 2 == 0):
+                      return "#353230";
+
+    default:
+            return "#d5c8b8";
+
+  } 
+
+}
+
+function EachCheck(props) {
 
   const {id, pawns}= props;
   let found = 'none'
@@ -98,28 +154,7 @@ function Square(props) {
   var color ='';
   var highlight_Square = false;
   var normal_Square = true;
-  if((parseInt(id / 8))%2==0)
-  {   
-    if(id % 2 == 0)
-    {
-      color = "BurlyWood";//1#9f0707
-    }
-    else
-    {
-      color = "#663300";//2#090909
-    }
-  } 
-  else
-  {
-    if(id % 2 == 0)
-    {
-      color = "#663300";//2
-    }
-    else
-    {
-      color = "BurlyWood";//1
-    }
-  }
+  var color = getColor(id);
   var clickable = false;
   for(let i=0;i<12;i++)
   {

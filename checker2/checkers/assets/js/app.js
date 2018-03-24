@@ -28,11 +28,11 @@ import "phoenix_html"
 
 //$(start);
 
-
+import $ from "jquery";
 import socket from "./socket";
 
 function form_init() {
-  let channel = socket.channel("games:demo", {});
+  let channel = socket.channel("games:demo empty", {});
   channel.join()
          .receive("ok", resp => { console.log("Joined successfully", resp) })
          .receive("error", resp => { console.log("Unable to join", resp) });
@@ -43,14 +43,33 @@ import game_init from "./checkers";
 
 function start() {
   let root = document.getElementById('root');
+  console.log('This is my gamename')
+  console.log(window.gameName)
+  console.log('This is my username')
+  console.log(window.userName)
   if (root) {
-    let channel = socket.channel("games:" + window.gameName, {});
+    //let channel = socket.channel("games:" + window.gameName+" "+window.userName, {});
+    let channel = socket.channel("games:" + window.gameName, {playername: window.userName});
     game_init(root, channel);
   }
 
   if (document.getElementById('index-page')) {
     form_init();
+  }  
+
+  function follow_click(ev){
+    console.log("Nice")
+    let btn = $(ev.target);
+    let follow_id = btn.data('game-id');
+    let user_id = btn.data('user-id');
+    console.log(follow_id)
+    console.log(user_id)
   }
+
+  $(".follow-button").click(follow_click);
+  $(".follow-button").click(follow_click);
 }
+
+
 
 $(start);

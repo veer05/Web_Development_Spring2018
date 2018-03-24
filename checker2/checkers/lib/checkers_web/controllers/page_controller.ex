@@ -6,6 +6,7 @@ defmodule CheckersWeb.PageController do
   end
 
   def game(conn, params) do
-    render conn, "game.html", game: params["game"]
+  	IO.inspect(params)
+    render conn, "game.html", game: params["username"], name:  params["pusername"]
   end
 end
