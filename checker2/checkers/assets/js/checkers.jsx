@@ -160,7 +160,7 @@ class Checkers extends React.Component {
             </div>
             
             <div class="col-8"> 
-              <div id="gameboard">
+              <div id="checkerbgboard">
                   {this.createSquares()}
               </div>
             </div>

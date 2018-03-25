@@ -1,14 +1,6 @@
 @import "bootstrap";
 
 
-
-#gameboard {
-
-    height: 600px;
-    width: 600px;
-    margin: 0 auto;
-}
-
 body { 
     font-size: 20pt; 
 }
@@ -92,8 +84,12 @@ body {
     background-size: cover;
 }
 
+// Initial Idea obtained from 
+// http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
 
-.div-with-bg
-{
-    background: color url('') others;
+#checkerbgboard {
+
+    height: 600px;
+    width: 600px;
+    margin: 0 auto;
 }
