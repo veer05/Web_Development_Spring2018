@@ -74,8 +74,8 @@ class Checkers extends React.Component {
     console.log("This is Move Pawn")
     console.log(window.userName)
     console.log(this.state)
-    if((this.state.player1 == window.userName && this.state.nextChance == "red") ||
-       (this.state.player2 == window.userName && this.state.nextChance == "black")){  
+    if((this.state.player1 == window.userName && this.state.nextChance == "red" && color == "red") ||
+       (this.state.player2 == window.userName && this.state.nextChance == "black" && color == "black")){  
     this.channel.push("movepawn", {id: id, pawn_id: pawn_id, color: color})
                 .receive("ok", this.renderView.bind(this));
     }

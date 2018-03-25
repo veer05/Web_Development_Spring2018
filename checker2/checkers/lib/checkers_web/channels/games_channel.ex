@@ -34,7 +34,7 @@ defmodule CheckersWeb.GamesChannel do
      game1 = Game.assignPlayerOne(game,id)
      Checkers.GameBackup.save(socket.assigns[:name],game1)
      socket = assign(socket, :game, game1)
-     broadcast! socket, "assignPlayer", %{ "game" => Game.client_view(game1)}
+     broadcast! socket, "assignPlayerOne", %{ "game" => Game.client_view(game1)}
      {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
   end
 
@@ -52,7 +52,7 @@ defmodule CheckersWeb.GamesChannel do
      game1 = Game.assignPlayerTwo(game,id)
      Checkers.GameBackup.save(socket.assigns[:name],game1)
      socket = assign(socket, :game, game1)
-     broadcast! socket, "assignPlayer", %{ "game" => Game.client_view(game1)}
+     broadcast! socket, "assignPlayerTwo", %{ "game" => Game.client_view(game1)}
      {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
   end
 
