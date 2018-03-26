@@ -49,25 +49,30 @@ function start() {
   console.log(window.userName)
   if (root) {
     //let channel = socket.channel("games:" + window.gameName+" "+window.userName, {});
-    let channel = socket.channel("games:" + window.gameName, {playername: window.userName});
+    let channel = socket.channel("games:" + window.gameName, {});
     game_init(root, channel);
+
+    let list    = $('#message-list');
+    let message = $('#message');
+    let name    = $('#name');
+
+    message.on('keypress', event => {
+    if (event.keyCode == 13) {
+      channel.push('new_message', { name: name.val(), message: message.val() });
+      message.val('');
+    }});
+
+    channel.on('new_message', payload => {
+    list.append(`<div class="chat-messages">
+                ${payload.name || 'Anonymous'}:</b> ${payload.message}</div>`);
+    list.prop({scrollTop: list.prop("scrollHeight")});});
   }
 
   if (document.getElementById('index-page')) {
     form_init();
   }  
 
-  function follow_click(ev){
-    console.log("Nice")
-    let btn = $(ev.target);
-    let follow_id = btn.data('game-id');
-    let user_id = btn.data('user-id');
-    console.log(follow_id)
-    console.log(user_id)
-  }
 
-  $(".follow-button").click(follow_click);
-  $(".follow-button").click(follow_click);
 }
 
 

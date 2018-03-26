@@ -84,6 +84,10 @@ defmodule CheckersWeb.GamesChannel do
     
   end
 
+  def handle_in("new_message", payload, socket) do
+    broadcast! socket, "new_message", payload
+    {:noreply, socket}
+  end
 
   
   # Channels can be used in a request/response fashion

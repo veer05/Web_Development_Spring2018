@@ -5,8 +5,27 @@
       window.gameName = "<%= @game %>";
       window.userName = "<%= @name %>";
     </script>
-    <div id="root">
-      <p>React app not loaded...</p>
+
+  <div class="row justify-content-between">
+    
+    <div class="col-9">  
+      <div id="root">
+        <p>React app not loaded...</p>
+      </div>
     </div>
-  </div>
-</div>
+    
+    <div class = 'col-3'>
+        <div class = "chat-header">Chat Box</div>
+        <div id='message-list' className='row'>
+        </div>
+
+        <div class='row' id = "chat-input">
+               <select id='name' class="select-user">
+                    <option value= <%= @name %> >Post as : <%= @name %></option>
+                    <option value="Anonymous">Post Anonymouly</option>
+                </select> 
+        </div>
+        <div class='row' id = "chat-input">
+            <input type='text' id='message' class='form-control' placeholder='Message' /> 
+        </div>   
+    </div>

@@ -134,7 +134,14 @@ defmodule Checkers.Game do
     else
       newRemovePawns = newRemovePawns ++ removePawns
     end
+    
+    if(color == "red") do
+      newPawns = %{"red" => newSelectedPawns, "black" => newRemovePawns}
+    else
+      newPawns = %{"black" => newSelectedPawns, "red" => newRemovePawns}
+    end
 
+    game = Map.put(game, :pawns, newPawns)
     opponentMove = checkEndGame(game,newRemovePawns)
     currPlayerMove = checkEndGame(game,newSelectedPawns)
     
@@ -142,8 +149,6 @@ defmodule Checkers.Game do
     curMoveLen = length currPlayerMove
     
     if(color == "red") do
-      newPawns = %{"red" => newSelectedPawns, "black" => newRemovePawns}
-
       if ((opMoveLen == 0) or (curMoveLen == 0)) do
         p1wins = getWinner(game,curMoveLen,newSelectedPawns,opMoveLen, newRemovePawns)
       end
@@ -152,7 +157,6 @@ defmodule Checkers.Game do
       if ((opMoveLen == 0) or (curMoveLen == 0)) do
         p2wins = getWinner(game,curMoveLen,newSelectedPawns,opMoveLen, newRemovePawns)
       end
-      newPawns = %{"black" => newSelectedPawns, "red" => newRemovePawns}
     end
     
     if((p1wins == "draw") or (p2wins == "draw")) do
@@ -178,7 +182,7 @@ defmodule Checkers.Game do
   def getWinner(game,curMoveLen,newSelectedPawns,opMoveLen, newRemovePawns) do
       pwins = false
       cond do
-          curMoveLen = opMoveLen ->
+          curMoveLen == opMoveLen ->
               pwins = tieBreaker(newSelectedPawns, newRemovePawns)
           curMoveLen > opMoveLen ->
               pwins = true
@@ -202,7 +206,7 @@ defmodule Checkers.Game do
     IO.inspect('Equal Case')
     pwins = false
     cond do 
-         p1kinLen = p2kinLen ->
+         p1kinLen == p2kinLen ->
           pwins = "draw"
          p1kinLen > p2kinLen ->
           pwins = true

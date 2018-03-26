@@ -4,67 +4,6 @@
 body { 
     font-size: 20pt; 
 }
-.pawn {
-
-    width: 80%;
-    height: 80%;
-    border-radius: 35px;
-    margin: 10%;
-    cursor:move;
-}
-.red{
-
-    background-color:#ffb366;
-    opacity:0.6;
-}
-
-.black{
-
-    background-color:black;
-    opacity:0.6;
-}
-
-.king{
-
-    border: 7px solid blue;
-    width: 60%;
-    height: 60%;
-    border-radius: 24px;
-    margin: 10%;
-}
-
-.square {
-
-    width: 75px;
-    height: 75px;
-    border: 2px solid black;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    float:left;
-    line-height: 140px;
-    text-align: center;
-    font-family: "Arial Narrow";
-    font-weight: bold;
-    font-size: 30px;
-    background-image: url("https://www.transparenttextures.com/patterns/arabesque.png");
-}
-
-.square_highlight {
-    
-    width: 75px;
-    height: 75px;
-    border: 10px solid black;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    float:left;
-    line-height: 140px;
-    text-align: center;
-    font-family: "Arial Narrow";
-    font-weight: bold;
-    font-size: 30px;
-}
 
 .bkimage {
      background-image: url("https://st2.depositphotos.com/2899505/7120/v/950/depositphotos_71202923-stock-illustration-wood-texture-web-page-background.jpg")
@@ -88,8 +27,210 @@ body {
 // http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
 
 #checkerbgboard {
-
     height: 600px;
     width: 600px;
     margin: 0 auto;
+    box-shadow: 10px 10px 5px grey;
+
+}
+
+.whitemarble {
+
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 140px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+    background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
+}
+
+.blackmarble {
+    
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 140px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+    background-image: url("http://harmonystonestatic.s3.amazonaws.com/media/cache/uploads/screen-shot-2016-03-31-at-12236-pm.png.640x0_q85.png");
+}
+
+
+#message-list {
+  border-style: outset;
+  height: 600px;
+  padding: 10px;
+  overflow: scroll;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  font-family: "Times New Roman";
+  background-image : url("https://media1.tenor.com/images/4c6187594727c6937f0ed9c4cbaf7249/tenor.gif?itemid=8949118");
+  background-size: 350px 600px;
+  background-repeat: no-repeat;
+}
+
+.chat-header{ 
+  border-radius: 10px;
+  border-style: outset;
+  font-family: "Times New Roman";  
+  text-align: center;
+  background-color: #A9A9A9;
+  margin-top: 100px;
+  margin-right: 17px;
+  opacity: 0.9;
+}
+
+.chat-messages{
+    width: 250px;
+    background-color: #00FF7F;
+    opacity: 0.85;
+    border-radius: 20px;
+    font-size: 20px;    
+    font-family: "Times New Roman";
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#chat-input {
+  overflow: auto; 
+  margin-bottom: 5px;
+  margin-right: 17px;
+  margin-left: 3px;
+}
+
+.select-user{
+    width: 350px;
+    font-family: "Times New Roman";
+}
+
+.ghostwhite{
+
+    background-color:#FAFAD2;  //#f0ffff;
+    opacity:0.2;
+}
+
+
+.whitemarble_highlight {
+
+    width: 75px;
+    height: 75px;
+    border: 4px solid black;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 140px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+    background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
+}
+
+.blackmarble_highlight {
+    
+    width: 75px;
+    height: 75px;
+    border: 4px solid black;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 140px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+    background-image: url("http://harmonystonestatic.s3.amazonaws.com/media/cache/uploads/screen-shot-2016-03-31-at-12236-pm.png.640x0_q85.png");
+}
+
+
+.whitepiecetemp {
+
+    width: 80%;
+    height: 80%;
+    border-radius: 35px;
+    margin: 10%;
+    cursor:move;
+    background-image: url("https://i.pinimg.com/originals/55/b3/fa/55b3fa7f622199ce46a17fa7ae9d3c05.jpg");
+    
+    background-size: contain;
+}
+
+.piece {
+    width: 80%;
+    height: 80%;
+    border-radius: 35px;
+    margin: 10%;    
+    overflow: hidden;
+    position: relative;
+    cursor: move;
+    transition: all 0.4s ease-in-out;
+}
+
+.white {
+    box-shadow:
+        inset 0 0 0 8px #FAEBD7, 
+        0 1px 2px red;
+    background-image: url("https://www.askideas.com/media/73/Terrific-Angry-Tribal-Wolf-Head-Tattoo-Design.jpg");
+    background-size: contain;
+    opacity: 0.8;
+}
+
+.black {
+    box-shadow: 
+    inset 0 0 0 8px silver,
+    0 1px 2px red;
+    transition: all 0.4s ease-in-out;
+    background-image: url("http://tattoo-collections.com/wp-content/uploads/Few-Tribal-Tattoo-Designs-8.jpg");
+    background-size: contain;
+    opacity: 0.7;
+}
+
+.piece:before {
+  content: "";
+  position: absolute;
+  top: 1%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
+  -webkit-filter: blur(5px);
+  z-index: 2;
+}
+
+.blackking{
+    box-shadow: 
+    inset 0 0 0 6px silver,
+    0 1px 6px   #DC143C;
+    transition: all 0.4s ease-in-out;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEACXbQIik0tE0Xvx5HZBDn5OKgB88hxGc-Y16p-uecJ2lHLptzQ");
+    //background-image: url("https://static.vecteezy.com/system/resources/previews/000/074/585/non_2x/lion-tattoo-vector.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+}
+.whiteking{
+    box-shadow: 
+    inset 0 0 0 6px #FAEBD7,
+    0 1px 6px   #DC143C;
+    transition: all 0.4s ease-in-out;
+    background-image: url("https://previews.123rf.com/images/sundatoon/sundatoon1708/sundatoon170800002/83784040-fox-head-mascot.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
 }

@@ -25,7 +25,24 @@ class Checkers extends React.Component {
         .receive("error",resp => {console.log("unable to join",resp)});
    this.channel.on("assignPlayerOne", payload => {this.setState(payload.game)})
    this.channel.on("assignPlayerTwo", payload => {this.setState(payload.game)})
-   this.channel.on("movepawn", payload => {this.setState(payload.game)}) 
+    this.channel.on("movepawn", payload => {
+    var p1wins = payload.game.p1Won;
+    var p2wins = payload.game.p2Won;
+ 
+    if(p1wins == true && p2wins == true){
+      alert("Congratulations!The match is a draw");
+      this.setReset();
+    }
+    if(p1wins==true && p2wins==false){
+      alert("Congratulations!Player1 wins");
+      this.setReset();
+    }
+    if(p2wins==true && p1wins==false){
+      alert("Congratulations!Player2 wins");
+      this.setReset();
+    }
+ 
+   this.setState(payload.game)}) 
    this.channel.on("Reset", payload => {this.setState(payload.game)}) 
    //this.channel.on("movepawn", resp => {this.render.bind(this)})
    //this.channel.on("getNextPos", payload => {this.setState(payload.game)})
@@ -85,8 +102,6 @@ class Checkers extends React.Component {
   {
     var valid_pos1;
     var valid_pos2;
-    this.setState({previously_clicked:pawn_id})
-    this.setState({previous_player:color})
     //console.log('Setting the Dict')
     let temp = this.state.validSquares
     console.log("This is pawnCLicked")
@@ -138,51 +153,23 @@ class Checkers extends React.Component {
               {this.state.player1 == "none" ?
               <span>
               <p> This Player will control  the red pawns </p>
-              <button class="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
+              <button className="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
                   Join as Player 1
               </button>
               </span> 
               :null}
           </div>
           <br/>
-
-          <div class="row justify-content-between">
-            
-            <div class="col-2 d-flex align-items-center" >
-              {this.state.player1 == "none" ? null :
-                  <span>  
-                  <h2> Welcome,</h2>
-                  <h3>{this.state.player1}</h3>
-                  <h3> Playing as color : Red </h3>
-                  <p> Pawns Removed </p>
-                  <p> {this.state.p1Score}</p>
-                  </span>}
-            </div>
-            
-            <div class="col-8"> 
               <div id="checkerbgboard">
                   {this.createSquares()}
               </div>
-            </div>
-            
-            <div class="col-2 d-flex align-items-center">
-              {this.state.player2 == "none" ? null : 
-                  <span>
-                  <h2> Welcome,</h2>
-                  <h3>{this.state.player2}</h3>
-                  <h3> Playing as color : Black </h3>
-                  <p> Pawns Removed </p>
-                  <p>{this.state.p2Score}</p> 
-                  </span>}
-            </div>
-
-          </div>
           <br/>
+
           <div className="text-center">
               {this.state.player2 == "none" ?
               <span>
               <p> This Player gets the black pawns</p>
-              <button class="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
+              <button className="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
                       Join as Player 2
               </button>
               </span>
@@ -191,13 +178,13 @@ class Checkers extends React.Component {
           <div className = "row">
               <div className="col-md-6">
                   {isPlayer ? 
-                  <button class="btn btn-primary" onClick={this.setReset.bind(this)}>
+                  <button className="btn btn-primary" onClick={this.setReset.bind(this)}>
                       Reset
                   </button>
                   :null}
               </div>
               <div className="col-md-6 text-right" id='score'>
-                    <button class="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
+                    <button className="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
                       Leave the Game
                     </button>
               </div>
@@ -218,17 +205,17 @@ function getColor(id){
     case((parseInt(id / 8)) % 2 == 0):
                                   if(id % 2 == 0)
                                   {
-                                      return "#d5c8b8"; //1#9f0707
+                                      return "white"; 
                                   }
                                   else
                                   {
-                                      return "#353230"; //2#090909
+                                      return "black"; //2#090909
                                   }
     case(id % 2 == 0):
-                      return "#353230";
+                      return "black";
 
     default:
-            return "#d5c8b8";
+            return "white";
 
   } 
 
@@ -241,7 +228,6 @@ function EachCheck(props) {
   let p_id = 100
   var color ='';
   var highlight_Square = false;
-  var normal_Square = true;
   var color = getColor(id);
   var clickable = false;
   for(let i=0;i<12;i++)
@@ -258,23 +244,29 @@ function EachCheck(props) {
   if(props.dict[id] !== undefined){
           clickable = true;
           highlight_Square = true;
-          normal_Square = false;
   }
-  var className = classnames(
+  
+  var pieceClass = classnames(
                'empty':true,
-              {'red pawn king': (found === 'red') && (pawns.red[p_id].king) === true},
-              {'black pawn king': (found === 'black') && (pawns.black[p_id].king) === true},
-              {'red pawn': (found === 'red') && (pawns.red[p_id].king === false)},
-              {'black pawn': (found === 'black') && (pawns.black[p_id].king === false)},
+              {'ghostwhite piece': (props.dict[id] !== undefined)},
+              {'whiteking piece': (found === 'red') && (pawns.red[p_id].king) === true},
+              {'blackking piece': (found === 'black') && (pawns.black[p_id].king) === true},
+              {'white piece': (found === 'red') && (pawns.red[p_id].king === false)},
+              {'black piece': (found === 'black') && (pawns.black[p_id].king === false)},
               );
+
+
   var hightlightclass = classnames(
-          {'square': normal_Square},
-          {'square_highlight': highlight_Square}  
+          {'whitemarble_highlight': (color === "white") && highlight_Square},
+          {'blackmarble_highlight': (color === "black") && highlight_Square},
+          {'whitemarble': (color === "white")},
+          {'blackmarble': (color === "black")}  
   );
+
   return (
-          <div className= {hightlightclass} style={{backgroundColor: color}} 
+          <div className= {hightlightclass}
             onClick={clickable ? () => props.movepawn(id, props.prevclick, props.player) : null}>
-          <div className ={className} onClick={() => props.pawnClicked(id, p_id, found, props.player)}/>
+          <div className ={pieceClass} onClick={() => props.pawnClicked(id, p_id, found, props.player)}/>
           </div>
   );
 }
