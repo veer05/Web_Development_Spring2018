@@ -263,7 +263,7 @@ class Checkers extends React.Component {
                   </div>  
                   
                   <div className =  "row">
-                    <div className = "container tmp">
+                    <div className = "containerboard tmp">
                       <div id="checkerbgboard">
                            {this.createSquares()}
                       </div>

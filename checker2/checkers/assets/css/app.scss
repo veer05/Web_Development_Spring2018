@@ -13,7 +13,7 @@ body {
 .bg {
     /* The image used */
     //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
-    background-image: url("https://www.transparenttextures.com/patterns/flowers.png");
+    background-image: url("https://previews.123rf.com/images/dedron/dedron1309/dedron130900003/22402572-seamless-vintage-ornament-can-be-used-for-wallpaper-pattern-fills-web-page-background-surface-textur.jpg");
 
     /* Full height */
     height: 100%; 
@@ -28,16 +28,17 @@ body {
 .tmp {
     /* The image used */
     //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
-    background-image: url("https://previews.123rf.com/images/hoverfly/hoverfly1201/hoverfly120100043/11964870-Retro-frame-on-seamless-vintage-background-Stock-Vector.jpg");
+    background-image: url("https://png.pngtree.com/thumb_back/fh260/back_pic/00/12/05/43563a1c6a3de8b.jpg");
 
     /* Full height */
     height: 100%; 
 
     /* Center and scale the image nicely */
     background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50px;
-    background-size: contain;
+    //background-repeat: no-repeat;
+    //border-radius: 50px;
+    //background-size: contain;
+    border-style: inset;
 }
 
 
@@ -46,12 +47,13 @@ body {
 // http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
 
 #checkerbgboard {
-    height: 720px;
-    width: 720px;
+    height: 100%;
+    width: 86%;
     margin: 0 auto;
-    margin-top: 60px;
-    margin-bottom: 70px;
-    box-shadow: 10px 10px 5px grey;
+    margin-top: 7%;
+    margin-right: 4.5%;
+    //margin-bottom: 70px;
+    //box-shadow: 10px 10px 5px grey;
 
 }
 .invisible{
@@ -59,7 +61,7 @@ body {
 }
 .whitemarble {
 
-    width: 90px;
+    width: 12%;
     height: 90px;
     border: 2px solid black;
     box-sizing: border-box;
@@ -75,7 +77,8 @@ body {
 }
 
 .scoredesc{
-    margin-left:35px;
+    margin-left:35%;
+    margin-top:50%;
     float:left;
     text-align: center;
     font-family: "Arial Narrow";
@@ -83,9 +86,9 @@ body {
     font-size: 30px;
 }
 .whitemarbleScore {
-    margin-left:25px;
-    width: 90px;
-    height: 90px;    
+    margin-left:16%;
+    width: 70%;
+    height: 500%;    
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -100,18 +103,18 @@ body {
 
 .score-card{
 
-    margin-top: 50px;
-    border-radius: 90px;
+    margin-top: 7%;
+    border-radius: 20%;
 }
 
 .score-card-black{
-    margin-top: 20px;
-    border-radius: 90px;
+    margin-top: 5%;
+    border-radius: 20%;
 
 }
 .blackmarble {
     
-    width: 90px;
+    width: 12%;
     height: 90px;
     border: 2px solid black;
     box-sizing: border-box;
@@ -129,49 +132,54 @@ body {
 
 #message-list {
   border-style: outset;
-  height: 600px;
-  padding: 10px;
+  height: 55rem;
+  padding: 1%;
   overflow: scroll;
-  margin-bottom: 5px;
-  margin-right: 20px;
+  margin-bottom: 1%;
+  margin-right: 15%;
   font-family: "Times New Roman";
-  background-image : url("https://media1.tenor.com/images/4c6187594727c6937f0ed9c4cbaf7249/tenor.gif?itemid=8949118");
-  background-size: 350px 600px;
+  background-image : url("https://i.pinimg.com/736x/5c/ef/d5/5cefd56bf9997a17c309af4201155cca--wallpaper-whatsapp-iphone-cute-wallpapers-for-iphone.jpg");
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
 .chat-header{ 
-  border-radius: 10px;
+  border-radius: 10%;
   border-style: outset;
   font-family: "Times New Roman";  
   text-align: center;
-  background-color: #A9A9A9;
-  margin-top: 100px;
-  margin-right: 17px;
+  background-color: #D4CDBB;
+  font-weight: bold;
+  margin-top: 15%;
+  margin-right: 15%;
   opacity: 0.9;
+  height: 4%;
+  padding: 1%;
 }
 
 .chat-messages{
-    width: 250px;
-    background-color: #00FF7F;
-    opacity: 0.85;
-    border-radius: 20px;
+    width: 90%;
+    background-color: #B4C3BC;
+    opacity: 0.90;
+    border-radius: 10%;
     font-size: 20px;    
     font-family: "Times New Roman";
-    padding: 5px;
-    margin-top: 5px;
+    padding: 1.7%;
+    margin-top: 1.7%;
 }
 
 #chat-input {
   overflow: auto; 
-  margin-bottom: 5px;
-  margin-right: 17px;
-  margin-left: 3px;
+  margin-bottom: 1%;
+  margin-left:1%;
+  margin-right: 15%;
+  height: 4%;
 }
 
 .select-user{
-    width: 350px;
+    width: 100%;
     font-family: "Times New Roman";
+    font-weight:bold;
 }
 
 .ghostwhite{
@@ -183,7 +191,7 @@ body {
 
 .whitemarble_highlight {
 
-    width: 90px;
+    width: 12%;
     height: 90px;
     border: 4px solid black;
     box-sizing: border-box;
@@ -196,11 +204,12 @@ body {
     font-weight: bold;
     font-size: 30px;
     background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
+    background-repeat: no-repeat;
 }
 
 .blackmarble_highlight {
     
-    width: 90px;
+    width: 12%;
     height: 90px;
     border: 4px solid black;
     box-sizing: border-box;
@@ -235,20 +244,27 @@ body {
     margin: 10%;    
     overflow: hidden;
     position: relative;
-    cursor: move;
+    background-color:white;
+    cursor: grab;
     transition: all 0.4s ease-in-out;
 }
 
+.containerboard {
+    width: 60em;
+    height:60em;
+}
+
 .scorerem { 
-    margin-left:125px;
-    margin-right:50px;
-    width: 90px;
-    height: 90px;    
+    margin-left:40%;
+    margin-right:20%;
+    margin-bottom:3%;
+    width: 22%;
+    height: 20%;    
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     float:left;
-    line-height: 73px;
+    line-height: 190%;
     text-align: center;
     font-family: "Arial Narrow";
     font-weight: bold;
@@ -268,20 +284,22 @@ body {
 
 .white {
     box-shadow:
-        inset 0 0 0 8px #FAEBD7, 
+        inset 0 0 0 8px #F0D6B5, 
         0 1px 2px red;
     background-image: url("https://www.askideas.com/media/73/Terrific-Angry-Tribal-Wolf-Head-Tattoo-Design.jpg");
     background-size: contain;
+    background-repeat: no-repeat;
     opacity: 0.8;
 }
 
 .black {
     box-shadow: 
-    inset 0 0 0 8px silver,
+    inset 0 0 0 8px #909089,
     0 1px 2px red;
     transition: all 0.4s ease-in-out;
     background-image: url("http://tattoo-collections.com/wp-content/uploads/Few-Tribal-Tattoo-Designs-8.jpg");
     background-size: contain;
+    background-repeat: no-repeat;
     opacity: 0.7;
 }
 
@@ -324,7 +342,7 @@ body {
 .scrcircle {
     width: 80%;
     height: 80%;
-    border-radius: 75px;
+    border-radius: 80%;
     margin: 10%;    
     overflow: hidden;
     position: relative;

@@ -32,11 +32,11 @@ import $ from "jquery";
 import socket from "./socket";
 
 function form_init() {
-  let channel = socket.channel("games:demo empty", {});
+  /*let channel = socket.channel("games:demo empty", {});
   channel.join()
          .receive("ok", resp => { console.log("Joined successfully", resp) })
          .receive("error", resp => { console.log("Unable to join", resp) });
-
+*/
 }
 
 import game_init from "./checkers";
