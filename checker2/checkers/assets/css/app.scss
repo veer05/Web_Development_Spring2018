@@ -2,7 +2,7 @@
 
 .mainBG{
     
-    background-image: url("https://previews.123rf.com/images/dedron/dedron1309/dedron130900003/22402572-seamless-vintage-ornament-can-be-used-for-wallpaper-pattern-fills-web-page-background-surface-textur.jpg");
+    background-image: url("../images/mainBG.png");
 }
 
 body { 
@@ -11,9 +11,8 @@ body {
 
 
 .bg {
-    /* The image used */
-    //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
-    background-image: url("https://previews.123rf.com/images/dedron/dedron1309/dedron130900003/22402572-seamless-vintage-ornament-can-be-used-for-wallpaper-pattern-fills-web-page-background-surface-textur.jpg");
+    
+    background-image: url("../images/bg.jpg");
 
     /* Full height */
     height: 100%; 
@@ -26,8 +25,8 @@ body {
 
 
 .tmp {
-    //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
-    background-image: url("https://png.pngtree.com/thumb_back/fh260/back_pic/00/12/05/43563a1c6a3de8b.jpg");
+    
+    background-image: url("../images/tmp.png");
     height: 100%; 
     background-position: center;
     border-style: inset;
@@ -61,7 +60,7 @@ body {
     font-family: "Arial Narrow";
     font-weight: bold;
     font-size: 30px;
-    background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
+    background-image: url("../images/whitemarble.png");
 }
 
 .scoredesc{
@@ -116,7 +115,7 @@ body {
     font-family: "Arial Narrow";
     font-weight: bold;
     font-size: 30px;
-    background-image: url("http://harmonystonestatic.s3.amazonaws.com/media/cache/uploads/screen-shot-2016-03-31-at-12236-pm.png.640x0_q85.png");
+    background-image: url("../images/blackmarble.png");
 }
 
 
@@ -128,7 +127,7 @@ body {
   margin-bottom: 1%;
   margin-right: 15%;
   font-family: "Times New Roman";
-  background-image : url("https://i.pinimg.com/736x/5c/ef/d5/5cefd56bf9997a17c309af4201155cca--wallpaper-whatsapp-iphone-cute-wallpapers-for-iphone.jpg");
+  background-image : url("../images/message.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -193,7 +192,7 @@ body {
     font-family: "Arial Narrow";
     font-weight: bold;
     font-size: 30px;
-    background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
+    background-image: url("../images/whitemarbehighlight.png");
     background-repeat: no-repeat;
 }
 
@@ -211,7 +210,7 @@ body {
     font-family: "Arial Narrow";
     font-weight: bold;
     font-size: 30px;
-    background-image: url("http://harmonystonestatic.s3.amazonaws.com/media/cache/uploads/screen-shot-2016-03-31-at-12236-pm.png.640x0_q85.png");
+    background-image: url("../images/blackmarblehighlight.png");
 }
 
 
@@ -222,7 +221,7 @@ body {
     border-radius: 35px;
     margin: 10%;
     cursor:move;
-    background-image: url("https://i.pinimg.com/originals/55/b3/fa/55b3fa7f622199ce46a17fa7ae9d3c05.jpg");
+    background-image: url("../images/whitepiecetemp.png");
     
     background-size: contain;
 }
@@ -276,7 +275,7 @@ body {
     box-shadow:
         inset 0 0 0 8px #F0D6B5, 
         0 1px 2px red;
-    background-image: url("https://www.askideas.com/media/73/Terrific-Angry-Tribal-Wolf-Head-Tattoo-Design.jpg");
+    background-image: url("../images/white.png");
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.8;
@@ -287,7 +286,7 @@ body {
     inset 0 0 0 8px #909089,
     0 1px 2px red;
     transition: all 0.4s ease-in-out;
-    background-image: url("http://tattoo-collections.com/wp-content/uploads/Few-Tribal-Tattoo-Designs-8.jpg");
+    background-image: url("../images/black.png");
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.7;
@@ -312,7 +311,7 @@ body {
     0 1px 6px   #DC143C;
     transition: all 0.4s ease-in-out;
     background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEACXbQIik0tE0Xvx5HZBDn5OKgB88hxGc-Y16p-uecJ2lHLptzQ");
-    //background-image: url("https://static.vecteezy.com/system/resources/previews/000/074/585/non_2x/lion-tattoo-vector.jpg");
+    //background-image: url("../images/blackking.png");
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.9;
@@ -322,7 +321,7 @@ body {
     inset 0 0 0 6px #FAEBD7,
     0 1px 6px   #DC143C;
     transition: all 0.4s ease-in-out;
-    background-image: url("https://previews.123rf.com/images/sundatoon/sundatoon1708/sundatoon170800002/83784040-fox-head-mascot.jpg");
+    background-image: url("../images/whiteking.png");
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.9;
@@ -356,7 +355,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("https://previews.123rf.com/images/sundatoon/sundatoon1708/sundatoon170800002/83784040-fox-head-mascot.jpg");
+  background: url("../images/overlay.png");
 }
 
 
