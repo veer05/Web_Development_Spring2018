@@ -193,11 +193,17 @@ class Checkers extends React.Component {
                                   </div>
                                 </div>
                                 <br/>
+                                <br/>
                           <div className = "text-center">
                             {this.state.player1 == "none" ? 
                               <button className="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
                                     Join as Player 1
                                     </button> : null}
+                          </div>
+                          <div className = "text-center">
+                              {(presentChance == "red" && this.state.player1 != "none") 
+                           ? 
+                           <h4> Player1's Turn </h4> : <h4 className = "invisible">Player1's Turn </h4>}
                           </div>
                       </div>
                   </div>
@@ -243,6 +249,11 @@ class Checkers extends React.Component {
                                     Join as Player 2
                                     </button> : null}
                           </div>
+                          <div className = "text-center">
+                              {(presentChance == "black" && this.state.player2 != "none") 
+                           ? 
+                           <h4> Player2's Turn </h4> : <h4 className = "invisible">Player1's Turn </h4>}
+                          </div>
                       </div>
                   </div>
 
@@ -252,16 +263,22 @@ class Checkers extends React.Component {
                   <div className =  "row align-text-center">
                       {this.state.player1 == "none" ?
                           <span>
-                                <p> This Player will control  the red pawns </p>
+                                <div className = "card player-details">
+                                <div className = "card-body">
+                                  <p> Player1 : Unassigned </p>
+                                </div>
+                                </div>
                            </span>
                   :
                           <span>
-                                <p> {this.state.player1} is controlling Red Pawns</p></span>}
-
-                          {(presentChance == "red" && this.state.player1 != "none") 
-                           ? <p>{this.state.player1} is thiking about the next move ....</p> : <p className = "invisible">{this.state.player1} is thiking about the next move ....  </p>}
+                                <div className = "card player-details">
+                                <div className = "card-body">
+                                    <p>Player1 Name : {this.state.player1}</p>
+                                </div>
+                                </div>
+                                </span>}
                   </div>  
-                  
+                  <br/>
                   <div className =  "row">
                     <div className = "containerboard tmp">
                       <div id="checkerbgboard">
@@ -269,33 +286,39 @@ class Checkers extends React.Component {
                       </div>
                   </div>
                 </div>
-
+                  <br/>
                   <div className =  "row align-text-center">
                         {this.state.player2 == "none" ?
                           <span>
-                                <p> This Player will control  the red pawns </p>
+                               <div className = "card player-details">
+                                <div className = "card-body">
+                                  <p> Player 2 : Unassigned </p>
+                                </div>
+                                </div>
                            </span>
                   :
                           <span>
-                                <p> {this.state.player2} is controlling Black Pawns</p></span>}
-
-                          {(presentChance == "black" && this.state.player2 != "none") 
-                           ? <p>{this.state.player2} is thiking about the next move ....</p> : <p className = "invisible">{this.state.player2} is thiking about the next move ....  </p>}
+                                <div className = "card player-details">
+                                <div className = "card-body">
+                                    <p>Player2 Name : {this.state.player1}</p>
+                                </div>
+                                </div>
+                              </span>}
                   </div>  
 
                   <div className = "row">
                       <div className="col-md-6">
                           {isPlayer ? 
-                                <button className="btn btn-primary" onClick={this.setReset.bind(this,msg1)}>
+                                <button className="btn btn-info btn-lg" onClick={this.setReset.bind(this,msg1)}>
                                 Reset </button>:null}
                       </div>
                       <div className="col-md-6 text-right" id='score'>
                               {isPlayer ? 
-                              <button className="btn btn-primary" onClick={this.leaveGame.bind(this)}>
+                              <button className="btn btn-danger  btn-lg" onClick={this.leaveGame.bind(this)}>
                               Leave Game
                               </button>
                               :
-                              <a class="btn btn-primary" href="http://localhost:4000/" role="button">Leave Game</a>}
+                              <a class="btn btn-danger  btn-lg" href="http://localhost:4000/" role="button">Leave Game</a>}
                       </div>
                   </div>
               </div>

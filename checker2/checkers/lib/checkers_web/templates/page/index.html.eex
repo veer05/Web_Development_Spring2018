@@ -1,27 +1,26 @@
 <body class = "mainBG">
-<div style="text-align: center; font-size: 85px;">
+<div class="header_text">
   Checkers Game
 </div>  
-<div class="row" style="margin-top: 35px;">
-<div class="col" style="text-align: -moz-right;">
-  <img class="card-img-top" style="border-radius: 50%; height: 300px; width: 245px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe0Bs_AX1rLKoWzhEGXKEsprGo3RyCSFqmduOfCxUd1fsofHn2" alt="Card image cap">
+<div class="row main_row">
+<div class="col">
+  <img class="card-img-top img1" src="http://sss.gjfodszqufe-uco1.pjhtubujd.ljdpn.nl5.gsr.awhoer.net/images?q=tbn:ANd9GcQe0Bs_AX1rLKoWzhEGXKEsprGo3RyCSFqmduOfCxUd1fsofHn2" alt="Card image cap">
 </div>
 
 <div class="col">
 
-  <img class="card-img-top" style="border-radius: 50%; height: 300px; width: 245px;" src="http://tattoo-collections.com/wp-content/uploads/Few-Tribal-Tattoo-Designs-8.jpg" alt="Card image cap">
+  <img class="card-img-top img2" src="http://cjubuupp-dpmmfdujpot.ljdpn.nl5.gsr.awhoer.net/wp-content/uploads/Few-Tribal-Tattoo-Designs-8.jpg" alt="Card image cap">
   
 </div>
 </div>
 
-
-<div class="row" style="text-align:center;">
+<div class="row inside_row">
   <div class="col">
   <h3>vs</h3>
 </div>
 </div>
 
-<div class="row" style="text-align:center;margin-top: 35px;">
+<div class="row secondary_row">
   <div class="col">
     <h1 id="index-page">Join a Game</h1>   
    <form action= "/game/:game" method="get">
@@ -31,11 +30,11 @@
    </h3>
      </div>
      <div>
-     <h3 style="margin-left: 19px;"> Enter User Name
+     <h3 class="user_name"> Enter User Name
      <input type="text" name="pusername" id ="pusername">
      </h3>
      </div>
-     <input type="submit" value="Submit" style="margin-left: 5px;">
+     <input class="submit_class "type="submit" value="Submit">
    </form>
   </div>
 </div>

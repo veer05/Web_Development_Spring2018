@@ -1,14 +1,14 @@
 @import "bootstrap";
 
-
+.mainBG{
+    
+    background-image: url("https://previews.123rf.com/images/dedron/dedron1309/dedron130900003/22402572-seamless-vintage-ornament-can-be-used-for-wallpaper-pattern-fills-web-page-background-surface-textur.jpg");
+}
 
 body { 
     font-size: 20pt; 
 }
 
-.bkimage {
-     background-image: url("https://st2.depositphotos.com/2899505/7120/v/950/depositphotos_71202923-stock-illustration-wood-texture-web-page-background.jpg")
-}
 
 .bg {
     /* The image used */
@@ -26,25 +26,13 @@ body {
 
 
 .tmp {
-    /* The image used */
     //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
     background-image: url("https://png.pngtree.com/thumb_back/fh260/back_pic/00/12/05/43563a1c6a3de8b.jpg");
-
-    /* Full height */
     height: 100%; 
-
-    /* Center and scale the image nicely */
     background-position: center;
-    //background-repeat: no-repeat;
-    //border-radius: 50px;
-    //background-size: contain;
     border-style: inset;
 }
 
-
-
-// Initial Idea obtained from 
-// http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
 
 #checkerbgboard {
     height: 100%;
@@ -103,13 +91,15 @@ body {
 
 .score-card{
 
-    margin-top: 7%;
+    margin-top: 17%;
     border-radius: 20%;
+    background-color: aliceblue;
 }
 
 .score-card-black{
     margin-top: 5%;
     border-radius: 20%;
+    background-color: aliceblue;
 
 }
 .blackmarble {
@@ -371,201 +361,52 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.ch-grid {
-    margin: 20px 0 0 0;
-    padding: 0;
-    list-style: none;
-    display: block;
-    text-align: center;
-    width: 100%;
-}
-
-.ch-grid:after,
-.ch-item:before {
-    content: '';
-    display: table;
-}
-
-.ch-grid:after {
-    clear: both;
-}
-
-.ch-grid li {
-    width: 200px;
-    height: 200px;
-    display: inline-block;
-    margin: 20px;
+.player-details {
+    border-radius: 15%;
+    font-size: larger;
+    margin-left: 55%;
+    font-size: 120%;
+    font-family: Copperplate Gothic Bold;
+    background-color: antiquewhite;
 }
 
 
-.ch-item {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    position: relative;
-    cursor: default;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-.ch-thumb {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    position: absolute;
-    box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5);
-    transform-origin: 95% 40%;
-    transition: all 0.3s ease-in-out;
-}
-.ch-thumb:after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    border-radius: 50%;
-    top: 40%;
-    left: 95%;
-    margin: -4px 0 0 -4px;
-    background: radial-gradient(ellipse at center, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
-    box-shadow: 0 0 1px rgba(255,255,255,0.9);
-}
 
-.ch-img-1 { 
-    background-image: url("https://previews.123rf.com/images/sundatoon/sundatoon1708/sundatoon170800002/83784040-fox-head-mascot.jpg");
-     background-size: contain;
-    background-repeat: no-repeat;
+.main_row{
+    margin-top: 3%; 
 }
-
-.ch-info {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #c9512e url(../images/noise.png);
-    box-shadow: inset 0 0 0 5px rgba(0,0,0,0.05);
+ 
+.img1{
+    border-radius: 50%; 
+    height: 100%; 
+    width: 30%;
+    margin-left: 70%;
 }
-
-.ch-info h3 {
-    color: #fff;
-    text-transform: uppercase;
-    position: relative;
-    letter-spacing: 2px;
-    font-size: 18px;
-    margin: 0 60px;
-    padding: 22px 0 0 0;
-    height: 85px;
-    font-family: 'Open Sans', Arial, sans-serif;
-    text-shadow: 
-        0 0 1px #fff, 
-        0 1px 2px rgba(0,0,0,0.3);
+ 
+.img2{
+    border-radius: 50%; 
+    height: 100%; 
+    width: 30%;
 }
-
-.ch-info p {
-    color: #fff;
-    padding: 10px 5px;
-    font-style: italic;
-    margin: 0 30px;
-    font-size: 12px;
-    border-top: 1px solid rgba(255,255,255,0.5);
+ 
+.inside_row{
+    text-align:center;
 }
-
-.ch-info p a {
-    display: block;
-    color: #333;
-    width: 80px;
-    height: 80px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    color: #fff;
-    font-style: normal;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 9px;
-    letter-spacing: 1px;
-    padding-top: 24px;
-    margin: 7px auto 0;
-    font-family: 'Open Sans', Arial, sans-serif;
-    opacity: 0;
-    transition: 
-        transform 0.3s ease-in-out 0.2s,
-        opacity 0.3s ease-in-out 0.2s,
-        background 0.2s linear 0s;
-    transform: translateX(60px) rotate(90deg);
+ 
+.secondary_row{
+    text-align:center;
+    margin-top: 3%;
 }
-
-.ch-info p a:hover {
-    background: rgba(255,255,255,0.5);
+ 
+.user_name{
+    margin-left: 1.2%;
 }
-
-/*.ch-item:hover {
-    box-shadow: 
-        inset 0 0 0 110px rgba(200,95,66, 0.4),
-        inset 0 0 0 16px rgba(255,255,255,0.8),
-        0 1px 2px rgba(0,0,0,0.1);
+ 
+.submit_class{
+    margin-left: 0.3%;
 }
-
-.ch-item:hover .ch-info {
-    opacity: 1;
-    transform: scale(1);    
-}
-.ch-item:hover .ch-info p {
-    opacity: 1;
-}
-*/
-
-.ch-item:hover .ch-thumb {
-    box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5), 0 1px 3px rgba(0,0,0,0.2);
-    transform: rotate(-110deg);
-}
-.ch-item:hover .ch-info p a{
-    opacity: 1;
-    transform: translateX(0px) rotate(0deg);
+ 
+.header_text{
+    text-align: center; 
+        font-size: 85px;
 }
