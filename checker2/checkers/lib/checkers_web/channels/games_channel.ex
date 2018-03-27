@@ -38,12 +38,22 @@ defmodule CheckersWeb.GamesChannel do
      {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
   end
 
-  def handle_in("Reset", %{"id" => id}, socket) do
+  def handle_in("Reset", %{"id" => id, "msg" => msg}, socket) do
      game = Checkers.GameBackup.load(socket.assigns[:name])
      game1 = Game.new()
      Checkers.GameBackup.save(socket.assigns[:name],game1)
      socket = assign(socket, :game, game1)
-     broadcast! socket, "Reset", %{ "game" => Game.client_view(game1)}
+          broadcast! socket, "Reset", %{ "game" => Game.client_view(game1), 
+     "msg" => msg}
+     {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
+  end
+
+  def handle_in("endGame", %{"id" => id}, socket) do
+     game = Checkers.GameBackup.load(socket.assigns[:name])
+     game1 = Game.new()
+     Checkers.GameBackup.save(socket.assigns[:name],game1)
+     socket = assign(socket, :game, game1)
+     broadcast! socket, "endGame", %{ "game" => Game.client_view(game1)}
      {:reply, {:ok, %{ "game" => Game.client_view(game1)}}, socket}
   end
 

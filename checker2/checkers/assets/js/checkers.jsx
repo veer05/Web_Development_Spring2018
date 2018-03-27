@@ -20,6 +20,7 @@ class Checkers extends React.Component {
    };
    console.log("Before Channel");
    this.createSquares = this.createSquares.bind(this);
+   this.leaveGame = this.leaveGame.bind(this);
    this.channel.join()
         .receive("ok", this.renderView.bind(this))
         .receive("error",resp => {console.log("unable to join",resp)});
@@ -29,33 +30,38 @@ class Checkers extends React.Component {
     var p1wins = payload.game.p1Won;
     var p2wins = payload.game.p2Won;
  
+    this.setState(payload.game)
     if(p1wins == true && p2wins == true){
       alert("Congratulations!The match is a draw");
-      this.setReset();
+      this.endGame();
     }
     if(p1wins==true && p2wins==false){
       alert("Congratulations!Player1 wins");
-      this.setReset();
+      this.endGame();
     }
     if(p2wins==true && p1wins==false){
       alert("Congratulations!Player2 wins");
-      this.setReset();
-    }
- 
-   this.setState(payload.game)}) 
-   this.channel.on("Reset", payload => {this.setState(payload.game)}) 
+      this.endGame();
+    }})
+       this.channel.on("Reset", payload => {
+       alert(payload.msg)
+       this.setState(payload.game)}) 
+
+
+    this.channel.on("endGame", payload => {
+    this.setState(payload.game)})
    //this.channel.on("movepawn", resp => {this.render.bind(this)})
    //this.channel.on("getNextPos", payload => {this.setState(payload.game)})
    //this.channel.on("movepawn", {id: id, pawn_id: pawn_id, color: color})
    //       .receive("ok", this.renderView.bind(this)); 
  }
 
- render(view){
-    console.log('Hit render')
-    this.setState(view.game);
-    console.log("this is after")
-    console.log(this.state)
-  }
+  leaveGame(){
+    alert("Thank you for joining!")
+    var msg ="one of the players has left the game!Thanks for joining!";
+    this.setReset(msg);
+    window.location.href = "http://localhost:4000";
+ }
 
  renderView(view){
 
@@ -116,8 +122,12 @@ class Checkers extends React.Component {
     
  }
 
- setReset(){
-    this.channel.push("Reset", {id: window.userName})
+ setReset(msg){
+    this.channel.push("Reset", {id: window.userName, msg: msg})
+ }
+
+ endGame(){
+   this.channel.push("endGame", {id: window.userName})
           .receive("ok", this.renderView.bind(this));
  }
  setPlayerOne(){
@@ -132,64 +142,168 @@ class Checkers extends React.Component {
 
   render()
   {
-
+    var msg1 = "The game is being reset!";
+    var msg2 = "One of the players has left the game!"
+    let presentChance = this.state.nextChance;
     var isPlayer = false;
     if (this.state.player1 == window.userName || this.state.player2 == window.userName){
       isPlayer = true;
     }
-    
-    if (this.state.p1Score == 12 || this.state.p2Score == 12)
-    {
-      setTimeout(() => {
-              alert("Congrats you have completed the game \n" + 
-              "Your Winner is :")
-              this.setReset();
-      }, 1000);
-    }
     if (this.state.pawns.length != 0){
       return(
         <div>
-          <div className="text-center">
-              {this.state.player1 == "none" ?
-              <span>
-              <p> This Player will control  the red pawns </p>
-              <button className="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
-                  Join as Player 1
-              </button>
-              </span> 
-              :null}
-          </div>
-          <br/>
-              <div id="checkerbgboard">
-                  {this.createSquares()}
-              </div>
-          <br/>
+          
 
-          <div className="text-center">
-              {this.state.player2 == "none" ?
-              <span>
-              <p> This Player gets the black pawns</p>
-              <button className="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
-                      Join as Player 2
-              </button>
-              </span>
-              :null}
-          </div>
           <div className = "row">
-              <div className="col-md-6">
-                  {isPlayer ? 
-                  <button className="btn btn-primary" onClick={this.setReset.bind(this)}>
-                      Reset
-                  </button>
-                  :null}
-              </div>
-              <div className="col-md-6 text-right" id='score'>
-                    <button className="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
-                      Leave the Game
-                    </button>
-              </div>
-          </div>
 
+              <div className = "col-4">
+
+                  <div class="card score-card">
+                      <div class="card-body">
+                          <h3 class="card-title text-center">Player 1 :</h3>
+                          <h4 class= "text-center"> These are your pawns</h4>
+                          <div className = "row">
+                            <div className = "col-6">
+                                <div className= "whitemarbleScore">
+                                    <div className = "white scrpiece"></div>
+                                </div>
+                            </div>
+                            <div className = "col-6">
+                                <div className= "whitemarbleScore">
+                                  <div className = "whiteking scrpiece"></div>
+                                </div>
+                            </div>
+                          </div> 
+                          <div className="row">
+                            <div className = "col-6">
+                                <div className= "scoredesc">
+                                    Normal
+                                </div>
+                            </div>
+                            <div className = "col-6">
+                                <div className= "scoredesc">
+                                     King 
+                                </div>
+                            </div>
+                          </div>
+                          <h4 className="text-center"> Pawns Remaining </h4>
+                                <div className= "scorerem">
+                                  <div className = "scrcircle">
+                                    <p>{12 - this.state.p2Score}</p>
+                                  </div>
+                                </div>
+                                <br/>
+                          <div className = "text-center">
+                            {this.state.player1 == "none" ? 
+                              <button className="btn btn-primary" onClick={this.setPlayerOne.bind(this)}>
+                                    Join as Player 1
+                                    </button> : null}
+                          </div>
+                      </div>
+                  </div>
+              
+                  <div class="card score-card-black">
+                      <div class="card-body">
+                          <h3 class="card-title text-center">Player 2 :</h3>
+                          <h4 class= "text-center"> These are your pawns</h4>
+                          <div className = "row">
+                            <div className = "col-6">
+                                <div className= "whitemarbleScore">
+                                    <div className = "black scrpiece"></div>
+                                </div>
+                            </div>
+                            <div className = "col-6">
+                                <div className= "whitemarbleScore">
+                                  <div className = "blackking scrpiece"></div>
+                                </div>
+                            </div>
+                          </div> 
+                          <div className="row">
+                            <div className = "col-6">
+                                <div className= "scoredesc">
+                                    Normal
+                                </div>
+                            </div>
+                            <div className = "col-6">
+                                <div className= "scoredesc">
+                                     King 
+                                </div>
+                            </div>
+                          </div>
+                          <h4 className="text-center"> Pawns Remaining </h4>
+                                <div className= "scorerem">
+                                  <div className = "scrcircle">
+                                    <p>{12 - this.state.p1Score}</p>
+                                  </div>
+                                </div>
+                                <br/>
+                          <div className = "text-center">
+                            {this.state.player2 == "none" ? 
+                              <button className="btn btn-primary" onClick={this.setPlayerTwo.bind(this)}>
+                                    Join as Player 2
+                                    </button> : null}
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div className = "col-8 ">
+                  <div className =  "row align-text-center">
+                      {this.state.player1 == "none" ?
+                          <span>
+                                <p> This Player will control  the red pawns </p>
+                           </span>
+                  :
+                          <span>
+                                <p> {this.state.player1} is controlling Red Pawns</p></span>}
+
+                          {(presentChance == "red" && this.state.player1 != "none") 
+                           ? <p>{this.state.player1} is thiking about the next move ....</p> : <p className = "invisible">{this.state.player1} is thiking about the next move ....  </p>}
+                  </div>  
+                  
+                  <div className =  "row">
+                    <div className = "container tmp">
+                      <div id="checkerbgboard">
+                           {this.createSquares()}
+                      </div>
+                  </div>
+                </div>
+
+                  <div className =  "row align-text-center">
+                        {this.state.player2 == "none" ?
+                          <span>
+                                <p> This Player will control  the red pawns </p>
+                           </span>
+                  :
+                          <span>
+                                <p> {this.state.player2} is controlling Black Pawns</p></span>}
+
+                          {(presentChance == "black" && this.state.player2 != "none") 
+                           ? <p>{this.state.player2} is thiking about the next move ....</p> : <p className = "invisible">{this.state.player2} is thiking about the next move ....  </p>}
+                  </div>  
+
+                  <div className = "row">
+                      <div className="col-md-6">
+                          {isPlayer ? 
+                                <button className="btn btn-primary" onClick={this.setReset.bind(this,msg1)}>
+                                Reset </button>:null}
+                      </div>
+                      <div className="col-md-6 text-right" id='score'>
+                              {isPlayer ? 
+                              <button className="btn btn-primary" onClick={this.leaveGame.bind(this)}>
+                              Leave Game
+                              </button>
+                              :
+                              <a class="btn btn-primary" href="http://localhost:4000/" role="button">Leave Game</a>}
+                      </div>
+                  </div>
+              </div>
+
+          
+
+
+          </div>
         </div>
         );
       }

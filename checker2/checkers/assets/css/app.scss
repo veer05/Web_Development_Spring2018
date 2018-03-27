@@ -1,6 +1,7 @@
 @import "bootstrap";
 
 
+
 body { 
     font-size: 20pt; 
 }
@@ -23,21 +24,43 @@ body {
     background-size: cover;
 }
 
+
+.tmp {
+    /* The image used */
+    //"https://www.toptal.com/designers/subtlepatterns/patterns/regal.png"
+    background-image: url("https://previews.123rf.com/images/hoverfly/hoverfly1201/hoverfly120100043/11964870-Retro-frame-on-seamless-vintage-background-Stock-Vector.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    background-size: contain;
+}
+
+
+
 // Initial Idea obtained from 
 // http://code2care.org/pages/chessboard-with-pieces-using-pure-html-and-css/
 
 #checkerbgboard {
-    height: 600px;
-    width: 600px;
+    height: 720px;
+    width: 720px;
     margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 70px;
     box-shadow: 10px 10px 5px grey;
 
 }
-
+.invisible{
+    visibility: hidden;
+}
 .whitemarble {
 
-    width: 75px;
-    height: 75px;
+    width: 90px;
+    height: 90px;
     border: 2px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -51,10 +74,45 @@ body {
     background-image: url("http://www.shiyuestone.com/wp-content/uploads/2017/07/14991506751-600x600.png");
 }
 
+.scoredesc{
+    margin-left:35px;
+    float:left;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+}
+.whitemarbleScore {
+    margin-left:25px;
+    width: 90px;
+    height: 90px;    
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 140px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;
+    
+}
+
+.score-card{
+
+    margin-top: 50px;
+    border-radius: 90px;
+}
+
+.score-card-black{
+    margin-top: 20px;
+    border-radius: 90px;
+
+}
 .blackmarble {
     
-    width: 75px;
-    height: 75px;
+    width: 90px;
+    height: 90px;
     border: 2px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -125,8 +183,8 @@ body {
 
 .whitemarble_highlight {
 
-    width: 75px;
-    height: 75px;
+    width: 90px;
+    height: 90px;
     border: 4px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -142,8 +200,8 @@ body {
 
 .blackmarble_highlight {
     
-    width: 75px;
-    height: 75px;
+    width: 90px;
+    height: 90px;
     border: 4px solid black;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -178,6 +236,32 @@ body {
     overflow: hidden;
     position: relative;
     cursor: move;
+    transition: all 0.4s ease-in-out;
+}
+
+.scorerem {
+    margin-left:100px;
+    width: 90px;
+    height: 90px;    
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float:left;
+    line-height: 70px;
+    text-align: center;
+    font-family: "Arial Narrow";
+    font-weight: bold;
+    font-size: 30px;  
+}
+
+
+.scrpiece {
+    width: 80%;
+    height: 80%;
+    border-radius: 75px;
+    margin: 10%;    
+    overflow: hidden;
+    position: relative;
     transition: all 0.4s ease-in-out;
 }
 
@@ -233,4 +317,229 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.9;
+}
+
+
+.scrcircle {
+    width: 80%;
+    height: 80%;
+    border-radius: 75px;
+    margin: 10%;    
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+     box-shadow: 
+    inset 0 0 0 6px #FAEBD7,
+    0 1px 6px   #DC143C;
+    transition: all 0.4s ease-in-out;
+    opacity: 0.9;
+}
+
+
+.align-text-center{
+    padding-left: 90px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ch-grid {
+    margin: 20px 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.ch-grid:after,
+.ch-item:before {
+    content: '';
+    display: table;
+}
+
+.ch-grid:after {
+    clear: both;
+}
+
+.ch-grid li {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    margin: 20px;
+}
+
+
+.ch-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    cursor: default;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.ch-thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5);
+    transform-origin: 95% 40%;
+    transition: all 0.3s ease-in-out;
+}
+.ch-thumb:after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    border-radius: 50%;
+    top: 40%;
+    left: 95%;
+    margin: -4px 0 0 -4px;
+    background: radial-gradient(ellipse at center, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
+    box-shadow: 0 0 1px rgba(255,255,255,0.9);
+}
+
+.ch-img-1 { 
+    background-image: url("https://previews.123rf.com/images/sundatoon/sundatoon1708/sundatoon170800002/83784040-fox-head-mascot.jpg");
+     background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.ch-info {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #c9512e url(../images/noise.png);
+    box-shadow: inset 0 0 0 5px rgba(0,0,0,0.05);
+}
+
+.ch-info h3 {
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 2px;
+    font-size: 18px;
+    margin: 0 60px;
+    padding: 22px 0 0 0;
+    height: 85px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-shadow: 
+        0 0 1px #fff, 
+        0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info p {
+    color: #fff;
+    padding: 10px 5px;
+    font-style: italic;
+    margin: 0 30px;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,0.5);
+}
+
+.ch-info p a {
+    display: block;
+    color: #333;
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    color: #fff;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding-top: 24px;
+    margin: 7px auto 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    opacity: 0;
+    transition: 
+        transform 0.3s ease-in-out 0.2s,
+        opacity 0.3s ease-in-out 0.2s,
+        background 0.2s linear 0s;
+    transform: translateX(60px) rotate(90deg);
+}
+
+.ch-info p a:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+/*.ch-item:hover {
+    box-shadow: 
+        inset 0 0 0 110px rgba(200,95,66, 0.4),
+        inset 0 0 0 16px rgba(255,255,255,0.8),
+        0 1px 2px rgba(0,0,0,0.1);
+}
+
+.ch-item:hover .ch-info {
+    opacity: 1;
+    transform: scale(1);    
+}
+.ch-item:hover .ch-info p {
+    opacity: 1;
+}
+*/
+
+.ch-item:hover .ch-thumb {
+    box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5), 0 1px 3px rgba(0,0,0,0.2);
+    transform: rotate(-110deg);
+}
+.ch-item:hover .ch-info p a{
+    opacity: 1;
+    transform: translateX(0px) rotate(0deg);
 }

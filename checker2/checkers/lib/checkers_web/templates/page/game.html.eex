@@ -1,12 +1,17 @@
 <div class="row">
   <div class="col">
     <h1>Checkers Game: <%= @game %></h1>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
       window.gameName = "<%= @game %>";
       window.userName = "<%= @name %>";
     </script>
 
-  <div class="row justify-content-between">
+  <div class="row">
     
     <div class="col-9">  
       <div id="root">
@@ -15,6 +20,59 @@
     </div>
     
     <div class = 'col-3'>
+        <div class="container">
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Instructions</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h4 class="modal-title">Game Rules</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><h2>Initial Play</h2></p>
+          <p>Initially choose a player to go first.Make your checker move legally by following the descriptions below. Once you move, wait for the opponent to make a move. The game goes on with alternating turns</p>
+          <p><h2>A legal move</h2></p>
+          <ul>
+            <li>Always move your pawn diagonally.Direction will be towards your opponent. Once the pawn becomes King, it can move both diagonally forward and backward</li>
+            <li>Move your pawn one space diagonally, to an open adjacent square.You can also jump over one opponent's checker to an open square adjacent to the one you jumped </li>
+            <li>If all the squares adjacent to your checker are occupied, youtr pawn is blocked and cannot move</li>
+            
+          </ul>
+          <p><h2>How to capture/remove opponent's pawn</h2></p>
+          <ul>
+            <li>
+              If you jump on the opponent's pawn, it is removed from the board and your score is increased by 10 points.
+            </li>
+          </ul>
+          <p><h2>How do you become a King</h2></p>
+          <ul>
+            <li>Once your checker reaches first row of your opponent's side of the game board, it becomes 'King'</li>
+          </ul>
+          <p><h2>How to win</h2></p>
+
+          <ul>
+            <li>The first player to remove all the opponent's pawns from the board wins the game</li>
+            <li>If the opponent is not able to move any of his pawns during his turn, and you are still able to move in your next chance, then you win</li>
+            <li>If the both the player's are unable to move during their turns, then player with more number of kings wins</li>
+            <li>If all the above conditions are not met, then the match is a draw</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>  
         <div class = "chat-header">Chat Box</div>
         <div id='message-list' className='row'>
         </div>
@@ -29,3 +87,4 @@
             <input type='text' id='message' class='form-control' placeholder='Message' /> 
         </div>   
     </div>
+  </div>

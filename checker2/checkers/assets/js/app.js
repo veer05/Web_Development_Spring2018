@@ -42,6 +42,7 @@ function form_init() {
 import game_init from "./checkers";
 
 function start() {
+
   let root = document.getElementById('root');
   console.log('This is my gamename')
   console.log(window.gameName)
@@ -54,7 +55,7 @@ function start() {
 
     let list    = $('#message-list');
     let message = $('#message');
-    let name    = $('#name');
+    let name    = $('#name'); 
 
     message.on('keypress', event => {
     if (event.keyCode == 13) {
@@ -64,7 +65,7 @@ function start() {
 
     channel.on('new_message', payload => {
     list.append(`<div class="chat-messages">
-                ${payload.name || 'Anonymous'}:</b> ${payload.message}</div>`);
+                ${payload.name || 'Anonymous'}: ${payload.message}</div>`);
     list.prop({scrollTop: list.prop("scrollHeight")});});
   }
 
