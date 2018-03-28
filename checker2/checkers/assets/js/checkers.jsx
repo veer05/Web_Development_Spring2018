@@ -50,17 +50,13 @@ class Checkers extends React.Component {
 
     this.channel.on("endGame", payload => {
     this.setState(payload.game)})
-   //this.channel.on("movepawn", resp => {this.render.bind(this)})
-   //this.channel.on("getNextPos", payload => {this.setState(payload.game)})
-   //this.channel.on("movepawn", {id: id, pawn_id: pawn_id, color: color})
-   //       .receive("ok", this.renderView.bind(this)); 
  }
 
   leaveGame(){
     alert("Thank you for joining!")
     var msg ="one of the players has left the game!Thanks for joining!";
     this.setReset(msg);
-    window.location.href = "http://localhost:4000";
+    window.location.href = "checkers.veerm.com";
  }
 
  renderView(view){
@@ -108,11 +104,7 @@ class Checkers extends React.Component {
   {
     var valid_pos1;
     var valid_pos2;
-    //console.log('Setting the Dict')
     let temp = this.state.validSquares
-    console.log("This is pawnCLicked")
-    console.log(this.state)
-   //if(this.state.nextChance === color){
     if((this.state.player1 == window.userName && this.state.nextChance == "red" && color == "red") ||
        (this.state.player2 == window.userName && this.state.nextChance == "black" 
        && color == "black")){  
@@ -318,7 +310,7 @@ class Checkers extends React.Component {
                               Leave Game
                               </button>
                               :
-                              <a class="btn btn-danger  btn-lg" href="http://localhost:4000/" role="button">Leave Game</a>}
+                              <a class="btn btn-danger  btn-lg" href="checkers.veerm.com" role="button">Leave Game</a>}
                       </div>
                   </div>
               </div>
@@ -346,7 +338,7 @@ function getColor(id){
                                   }
                                   else
                                   {
-                                      return "black"; //2#090909
+                                      return "black"; 
                                   }
     case(id % 2 == 0):
                       return "black";
