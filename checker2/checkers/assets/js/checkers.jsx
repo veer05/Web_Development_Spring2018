@@ -18,7 +18,7 @@ class Checkers extends React.Component {
        player2: null,
        spectator: false,         
    };
-   console.log("Before Channel");
+   //console.log("Before Channel");
    this.createSquares = this.createSquares.bind(this);
    this.leaveGame = this.leaveGame.bind(this);
    this.channel.join()
@@ -62,8 +62,8 @@ class Checkers extends React.Component {
  renderView(view){
 
     this.setState(view.game);
-    console.log("this is after render")
-    console.log(this.state)
+    //console.log("this is after render")
+    //console.log(this.state)
   }
 
   createSquares()
@@ -90,9 +90,9 @@ class Checkers extends React.Component {
   }
 
   movepawn(id,pawn_id,color){
-    console.log("This is Move Pawn")
-    console.log(window.userName)
-    console.log(this.state)
+    //console.log("This is Move Pawn")
+    //console.log(window.userName)
+    //console.log(this.state)
     if((this.state.player1 == window.userName && this.state.nextChance == "red" && color == "red") ||
        (this.state.player2 == window.userName && this.state.nextChance == "black" && color == "black")){  
     this.channel.push("movepawn", {id: id, pawn_id: pawn_id, color: color})
