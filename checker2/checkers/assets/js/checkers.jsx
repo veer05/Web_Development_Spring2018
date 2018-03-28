@@ -6,6 +6,11 @@ export default function game_init(root,channel) {
   ReactDOM.render(<Checkers channel={channel} />, root);
 }
  
+// Chat App Built using reference from 
+//https://hexdocs.pm/phoenix/channels.html
+//https://hexdocs.pm/phoenix/Phoenix.Channel.html
+//https://sheharyar.me/blog/simple-chat-phoenix-elixir/
+
 class Checkers extends React.Component {
  
   constructor(props) {
@@ -24,6 +29,7 @@ class Checkers extends React.Component {
    this.channel.join()
         .receive("ok", this.renderView.bind(this))
         .receive("error",resp => {console.log("unable to join",resp)});
+    // Listening to move pawns and reset events so that it can be broadcasted
    this.channel.on("assignPlayerOne", payload => {this.setState(payload.game)})
    this.channel.on("assignPlayerTwo", payload => {this.setState(payload.game)})
     this.channel.on("movepawn", payload => {
@@ -51,7 +57,7 @@ class Checkers extends React.Component {
     this.channel.on("endGame", payload => {
     this.setState(payload.game)})
  }
-
+ // WHen the player leaves the game
   leaveGame(){
     alert("Thank you for joining!")
     var msg ="one of the players has left the game!Thanks for joining!";
@@ -65,7 +71,7 @@ class Checkers extends React.Component {
     //console.log("this is after render")
     //console.log(this.state)
   }
-
+  //Create the squares 
   createSquares()
   {
     let allSquares = [];
@@ -78,17 +84,10 @@ class Checkers extends React.Component {
     }
     return allSquares;
   }
+ 
 
-  pawnToRemove(remove_pawn, pos){
-    let pawnlist = this.state.pawns;
-    for(let i =0;i<12;i++){
-      if(pawnlist[remove_pawn][i].position == pos)
-      {
-        return pawnlist[remove_pawn][i]
-      }
-    }
-  }
 
+// Move the pawn to valid pos
   movepawn(id,pawn_id,color){
     //console.log("This is Move Pawn")
     //console.log(window.userName)
@@ -100,6 +99,7 @@ class Checkers extends React.Component {
     }
   }
 
+  // On Each click get valid squares
   pawnClicked(id,pawn_id,color,player)
   {
     var valid_pos1;
@@ -114,24 +114,27 @@ class Checkers extends React.Component {
     
  }
 
+// If the player wants to reset the game
  setReset(msg){
     this.channel.push("Reset", {id: window.userName, msg: msg})
  }
 
+// In case the player decides to leave the game
  endGame(){
    this.channel.push("endGame", {id: window.userName})
           .receive("ok", this.renderView.bind(this));
  }
+ // Assigns Player1 to the game,
  setPlayerOne(){
   this.channel.push("assignPlayerOne", {id: window.userName})
           .receive("ok", this.renderView.bind(this));
  }
-
+ // Assigns Player2 to the game,
   setPlayerTwo(){
   this.channel.push("assignPlayerTwo", {id: window.userName})
           .receive("ok", this.renderView.bind(this));
  }
-
+// Displaying the board chat and the score component
   render()
   {
     var msg1 = "The game is being reset!";
@@ -323,6 +326,7 @@ class Checkers extends React.Component {
   }
 }
 
+// Setting color to the square 
 function getColor(id){
   switch(true){
 
@@ -345,6 +349,7 @@ function getColor(id){
 
 }
 
+// Referes to each square component for the checker board
 function EachCheck(props) {
 
   const {id, pawns}= props;
