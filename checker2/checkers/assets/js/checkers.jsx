@@ -56,7 +56,7 @@ class Checkers extends React.Component {
     alert("Thank you for joining!")
     var msg ="one of the players has left the game!Thanks for joining!";
     this.setReset(msg);
-    window.location.href = "checkers.veerm.com";
+    window.location.href = "http://checkers.veerm.com";
  }
 
  renderView(view){
@@ -254,21 +254,19 @@ class Checkers extends React.Component {
               <div className = "col-8 ">
                   <div className =  "row align-text-center">
                       {this.state.player1 == "none" ?
-                          <span>
                                 <div className = "card player-details">
                                 <div className = "card-body">
                                   <p> Player1 : Unassigned </p>
                                 </div>
                                 </div>
-                           </span>
                   :
-                          <span>
+                          
                                 <div className = "card player-details">
                                 <div className = "card-body">
                                     <p>Player1 Name : {this.state.player1}</p>
                                 </div>
                                 </div>
-                                </span>}
+                                }
                   </div>  
                   <br/>
                   <div className =  "row">
@@ -281,21 +279,18 @@ class Checkers extends React.Component {
                   <br/>
                   <div className =  "row align-text-center">
                         {this.state.player2 == "none" ?
-                          <span>
                                <div className = "card player-details">
                                 <div className = "card-body">
                                   <p> Player 2 : Unassigned </p>
                                 </div>
                                 </div>
-                           </span>
                   :
-                          <span>
                                 <div className = "card player-details">
                                 <div className = "card-body">
-                                    <p>Player2 Name : {this.state.player1}</p>
+                                    <p>Player2 Name : {this.state.player2}</p>
                                 </div>
                                 </div>
-                              </span>}
+                              }
                   </div>  
 
                   <div className = "row">
@@ -310,7 +305,7 @@ class Checkers extends React.Component {
                               Leave Game
                               </button>
                               :
-                              <a class="btn btn-danger  btn-lg" href="checkers.veerm.com" role="button">Leave Game</a>}
+                              <a class="btn btn-danger  btn-lg" href="http://checkers.veerm.com" role="button">Leave Game</a>}
                       </div>
                   </div>
               </div>
